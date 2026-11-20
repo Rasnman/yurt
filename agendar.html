@@ -250,8 +250,6 @@ header.top { display: flex; justify-content: space-between; align-items: center;
   <section class="intro" id="intro">
     <h1 id="title">Agende seu horário</h1>
     <p>Escolha o serviço, o dia e o horário livre. O pedido vai direto para o WhatsApp da Yurt, e a confirmação chega no seu WhatsApp.</p>
-    <!-- PRÉVIA: os horários ocupados são de exemplo. Ao conectar o Google Calendar, a função isBusy() passa a ler a agenda real. -->
-    <span class="preview">Prévia visual: horários de exemplo</span>
   </section>
 
   <div class="layout" id="main">
@@ -378,7 +376,28 @@ header.top { display: flex; justify-content: space-between; align-items: center;
   function dayOpen(i) { return isWorkday(DAYS[i]) && (i !== 0 || NOW_MIN < CLOSE - STEP); }
 
   // EXEMPLO: troca por leitura da agenda do Google Calendar
-  function isBusy(dayIndex, m) { return ((dayIndex * 7 + m / STEP) % 5 === 0); }
+  // Horários ocupados vêm da agenda real (via script), guardados por dia
+  var busyByDay = {};
+  var agendaErro = false;
+  function isoOf(d) { return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+  function hm(s) { var p = s.split(':'); return parseInt(p[0], 10) * 60 + parseInt(p[1], 10); }
+  function isBusy(dayIndex, m) {
+    var list = busyByDay[isoOf(DAYS[dayIndex])] || [];
+    for (var k = 0; k < list.length; k++) if (m >= list[k][0] && m < list[k][1]) return true;
+    return false;
+  }
+  function loadBusy(dayIndex, done) {
+    var iso = isoOf(DAYS[dayIndex]);
+    if (busyByDay[iso]) return done();
+    agendaErro = false;
+    fetch(HOOK + '?data=' + iso)
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        busyByDay[iso] = (j.busy || []).map(function (b) { return [hm(b.ini), hm(b.fim)]; });
+        done();
+      })
+      .catch(function () { agendaErro = true; busyByDay[iso] = []; done(); });
+  }
   function fits(dayIndex, start, dur) {
     if (!dayOpen(dayIndex)) return false;
     if (dayIndex === 0 && start < NOW_MIN) return false;
@@ -465,6 +484,7 @@ header.top { display: flex; justify-content: space-between; align-items: center;
           if (e.currentTarget.disabled) return;
           day = (day === i) ? null : i;
           slot = null; pop(e.currentTarget); update();
+          if (day !== null) loadBusy(day, function () { slotsKey = ''; update(); });
         });
         cell.appendChild(b);
       }
