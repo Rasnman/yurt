@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agendar horário | Barbearia Yurt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #26291F;
+  --ink-deep: #1B1D16;
+  --gold: #D09D59;
+  --gold-hi: #F3B25D;
+  --cream: #EEEDE8;
+  --muted: #A9A89C;
+  --rule: rgba(208, 157, 89, 0.22);
+  --paper: #FFE9C8;
+  --paper-ink: #2A2A22;
+  --paper-gold: #7A5322;
+  --display: "Bodoni Moda", "Didot", Georgia, serif;
+  --text: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif;
+  --pad: clamp(18px, 5vw, 64px);
+  --ease: cubic-bezier(.2,.7,.2,1);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--ink); color: var(--cream); font: 400 16px/1.6 var(--text); color-scheme: dark; -webkit-font-smoothing: antialiased; min-height: 100vh; overflow-x: hidden; }
+a { color: inherit; }
+button, input, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.05; font-variation-settings: "opsz" 28; letter-spacing: -0.01em; }
+
+/* Progresso no topo */
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; background: var(--rule); z-index: 40; }
+.progress i { display: block; height: 100%; width: 0; background: var(--gold-hi); transition: width .6s var(--ease); }
+
+/* Fundo com desenhos de barbearia flutuando */
+.bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.dw { position: absolute; pointer-events: auto; cursor: pointer; will-change: transform; transition: transform .45s var(--ease); }
+.dw .di { display: block; width: var(--s, 70px); height: auto; color: var(--gold); opacity: .32; overflow: visible; filter: drop-shadow(0 0 4px rgba(208,157,89,.35)); animation: drift 7s ease-in-out var(--dl, 0s) infinite; transition: scale .5s var(--ease), opacity .4s, filter .4s; }
+.dw:nth-child(even) .di { color: var(--gold-hi); }
+.dw:hover .di { scale: 1.3; opacity: .9; filter: drop-shadow(0 0 14px rgba(243,178,93,.85)); }
+@keyframes drift {
+  0%, 100% { translate: 0 0; rotate: -5deg; }
+  25% { translate: 8px -14px; rotate: 4deg; }
+  50% { translate: 2px -26px; rotate: -2deg; }
+  75% { translate: -8px -12px; rotate: 6deg; }
+}
+
+.wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 0 var(--pad); min-width: 0; }
+header.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 24px 0; flex-wrap: wrap; }
+.wordmark { font: 500 20px/1 var(--display); text-decoration: none; font-variation-settings: "opsz" 28; }
+.back { font-size: 15px; color: rgba(238,237,232,.8); text-decoration: none; border-bottom: 1px solid var(--gold); padding-bottom: 3px; transition: color .25s; }
+.back:hover { color: var(--gold-hi); }
+
+.intro { position: relative; padding: clamp(24px, 5vw, 48px) 0 clamp(20px, 4vw, 36px); border-bottom: 1px solid var(--rule); --x: 50%; --y: 40%; }
+/* A luz vai até zero antes da borda da caixa, então termina suave, sem corte */
+.intro::before { content: ""; position: absolute; inset: -240px; pointer-events: none; background: radial-gradient(300px circle at calc(var(--x) + 240px) calc(var(--y) + 240px), rgba(208,157,89,.16), rgba(208,157,89,0) 70%); opacity: 0; transition: opacity .5s; }
+.intro:hover::before { opacity: 1; }
+.intro > * { position: relative; }
+.intro h1 { font-size: clamp(40px, 7vw, 76px); }
+.intro h1 .ch { display: inline-block; opacity: 0; transform: translateY(.35em); animation: rise .8s var(--ease) forwards; animation-delay: calc(var(--i) * 45ms + 100ms); }
+.intro p { color: var(--muted); margin-top: 14px; max-width: 52ch; opacity: 0; animation: rise .9s .5s var(--ease) forwards; }
+.preview { display: inline-block; margin-top: 16px; font-size: 13px; color: var(--gold-hi); border: 1px solid var(--gold); padding: 6px 10px; opacity: 0; animation: rise .9s .7s var(--ease) forwards; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 380px); gap: clamp(28px, 5vw, 64px); padding: clamp(28px, 5vw, 48px) 0 clamp(60px, 9vw, 110px); align-items: start; }
+.steps { min-width: 0; display: grid; grid-template-columns: minmax(0, 1fr); gap: 48px; }
+.step { min-width: 0; opacity: 0; transform: translateY(26px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+.step.in { opacity: 1; transform: none; }
+.step h2 { font-size: clamp(26px, 3.4vw, 34px); margin-bottom: 18px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.step h2 .n { font: 500 15px/1 var(--text); color: var(--gold-hi); border: 1px solid var(--gold); width: 34px; height: 34px; display: grid; place-items: center; flex-shrink: 0; transition: background .4s, color .4s, transform .4s var(--ease); }
+.step.done h2 .n { background: var(--gold); color: var(--ink-deep); transform: rotate(-8deg); }
+.step h2 .tag { font: 400 14px/1.3 var(--text); color: var(--muted); }
+.hint { color: var(--muted); font-size: 14px; margin: -8px 0 16px; min-height: 1.4em; }
+
+/* Serviços */
+.svc { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 12px; }
+.svc label { position: relative; display: flex; flex-direction: column; gap: 8px; padding: 16px 18px; border: 1px solid var(--rule); background: rgba(27,29,22,.55); cursor: pointer; min-width: 0; transform-style: preserve-3d; transition: border-color .3s, background .3s, box-shadow .4s, transform .25s var(--ease); }
+.svc label:hover { border-color: var(--gold); box-shadow: 0 16px 34px -18px rgba(0,0,0,.9); }
+.svc input { position: absolute; opacity: 0; pointer-events: none; }
+.svc .nm { font-weight: 500; line-height: 1.3; overflow-wrap: anywhere; }
+.svc .meta { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; color: var(--muted); }
+.svc .meta b { color: var(--gold-hi); font-weight: 600; white-space: nowrap; }
+.svc .tick { position: absolute; top: 12px; right: 12px; width: 18px; height: 18px; border: 1.5px solid rgba(208,157,89,.6); transition: background .3s, border-color .3s; }
+.svc .tick::after { content: ""; position: absolute; left: 5px; top: 0; width: 5px; height: 10px; border: solid var(--ink-deep); border-width: 0 2px 2px 0; transform: rotate(45deg) scale(0); transition: transform .35s var(--ease) .05s; }
+.svc label.on { border-color: var(--gold-hi); background: rgba(208,157,89,.12); }
+.svc label.on .tick { background: var(--gold-hi); border-color: var(--gold-hi); }
+.svc label.on .tick::after { transform: rotate(45deg) scale(1); }
+.svc label.pop { animation: pop .45s var(--ease); }
+@keyframes pop { 40% { scale: 1.035; } }
+
+/* Calendário de 30 dias: datas fechadas ficam escuras e não podem ser escolhidas */
+.cal { border: 1px solid var(--rule); background: rgba(27,29,22,.55); padding: 18px clamp(10px, 3vw, 22px) 16px; min-width: 0; }
+.cal-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+.cal-head .lbl { font: 400 clamp(19px, 2.4vw, 23px)/1.2 var(--display); font-variation-settings: "opsz" 28; }
+.cal-head .janela { font-size: 13px; color: var(--muted); }
+.cal-wk { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; margin-bottom: 6px; }
+.cal-wk span { text-align: center; font-size: 12px; color: var(--muted); padding-bottom: 6px; border-bottom: 1px solid var(--rule); }
+.cal-grid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.cal-cell { aspect-ratio: 1 / 1; min-width: 0; }
+.cal-cell.blank { visibility: hidden; }
+.cal-day { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border: 1px solid var(--rule); background: rgba(27,29,22,.35); cursor: pointer; transition: border-color .25s, background .3s, color .3s, transform .3s var(--ease); }
+.cal-day .num { font: 500 clamp(16px, 2.6vw, 21px)/1 var(--display); font-variation-settings: "opsz" 28; font-variant-numeric: tabular-nums; }
+.cal-day .hoje { font-size: 10px; color: var(--gold-hi); line-height: 1; min-height: 10px; }
+.cal-day:hover:not(:disabled) { border-color: var(--gold); transform: translateY(-2px); }
+.cal-day:disabled { cursor: not-allowed; background: rgba(0,0,0,.35); border-color: rgba(208,157,89,.08); color: rgba(169,168,156,.28); }
+.cal-day:disabled .hoje { color: rgba(243,178,93,.25); }
+.cal-day[aria-pressed="true"] { background: var(--gold); border-color: var(--gold); color: var(--ink-deep); transform: scale(1.06); box-shadow: 0 12px 24px -12px rgba(208,157,89,.8); }
+.cal-day[aria-pressed="true"] .hoje { color: var(--ink-deep); }
+.cal-day.pop { animation: pop .45s var(--ease); }
+.cal-foot { margin-top: 14px; font-size: 14px; color: var(--muted); min-height: 1.4em; }
+.cal-foot b { color: var(--gold-hi); font-weight: 500; }
+.cal-legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 10px; font-size: 12px; color: var(--muted); }
+.cal-legend i { display: inline-block; width: 12px; height: 12px; border: 1px solid var(--rule); vertical-align: -2px; margin-right: 6px; }
+.cal-legend i.off { background: rgba(0,0,0,.35); border-color: rgba(208,157,89,.08); }
+.cal-legend i.sel { background: var(--gold); border-color: var(--gold); }
+
+/* Horários */
+.slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 92px), 1fr)); gap: 10px; }
+.slots button { position: relative; overflow: hidden; padding: 12px 6px; border: 1px solid var(--rule); background: transparent; cursor: pointer; font-variant-numeric: tabular-nums; opacity: 0; transform: scale(.9); transition: border-color .25s, background .25s, color .25s, transform .25s var(--ease), opacity .3s; }
+.slots button.show { opacity: 1; transform: none; transition-delay: calc(var(--i) * 22ms); }
+.slots button:hover:not(:disabled) { border-color: var(--gold-hi); transform: translateY(-2px); }
+.slots button:disabled { opacity: .25; cursor: not-allowed; text-decoration: line-through; }
+.slots button[aria-pressed="true"] { background: var(--gold-hi); border-color: var(--gold-hi); color: var(--ink-deep); transform: scale(1.04); }
+.slots button .ripple { position: absolute; border-radius: 50%; background: rgba(243,178,93,.45); transform: scale(0); animation: ripple .6s ease-out forwards; pointer-events: none; }
+@keyframes ripple { to { transform: scale(4); opacity: 0; } }
+
+/* Dados */
+.fields { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
+.fields label { display: grid; gap: 6px; font-size: 14px; color: var(--muted); min-width: 0; }
+.fields input, .fields textarea { width: 100%; padding: 14px; background: var(--ink-deep); border: 1px solid var(--rule); color: var(--cream); font-size: 16px; transition: border-color .3s, box-shadow .3s; }
+.fields input:focus, .fields textarea:focus { outline: none; border-color: var(--gold-hi); box-shadow: 0 0 0 4px rgba(243,178,93,.12); }
+.fields input.bad { border-color: #E07A5F; animation: shake .4s; }
+@keyframes shake { 20%, 60% { translate: -6px 0; } 40%, 80% { translate: 6px 0; } }
+.fields .full { grid-column: 1 / -1; }
+
+/* Resumo */
+.summary { position: sticky; top: 24px; background: var(--paper); color: var(--paper-ink); padding: clamp(24px, 3vw, 34px); min-width: 0; box-shadow: 0 30px 60px -30px rgba(0,0,0,.6); opacity: 0; transform: translateX(30px); animation: slideIn .9s .35s var(--ease) forwards; }
+@keyframes slideIn { to { opacity: 1; transform: none; } }
+.summary h2 { font-size: 30px; color: var(--paper-ink); margin-bottom: 18px; }
+.summary dl { display: grid; gap: 14px; }
+.summary dt { font-size: 13px; color: #6B6553; }
+.summary dd { font-weight: 500; overflow-wrap: anywhere; }
+.summary dd.flash { animation: flash .7s var(--ease); }
+@keyframes flash { 0% { color: var(--paper-gold); transform: translateX(-6px); } 100% { color: inherit; transform: none; } }
+.summary .tot { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 22px 0; padding-top: 16px; border-top: 1px solid rgba(122,83,34,.35); }
+.summary .tot strong { font: 500 32px/1 var(--display); font-variation-settings: "opsz" 28; color: var(--paper-gold); font-variant-numeric: tabular-nums; }
+.btn-go { position: relative; overflow: hidden; width: 100%; display: flex; align-items: center; justify-content: center; gap: 10px; padding: 18px 20px; border: 1px solid transparent; font: 500 16px/1 var(--text); transition: background .3s, color .3s, transform .3s var(--ease), box-shadow .3s; background: rgba(38,41,31,.38); color: rgba(238,237,232,.72); cursor: default; }
+.btn-go.live { background: var(--ink); color: var(--gold-hi); cursor: pointer; box-shadow: 0 16px 30px -16px rgba(38,41,31,.9); animation: wake .7s var(--ease); }
+.btn-go.live:hover { background: var(--ink-deep); color: var(--gold-hi); transform: translateY(-2px); }
+@keyframes wake { 0% { box-shadow: 0 0 0 0 rgba(208,157,89,.6); } 100% { box-shadow: 0 16px 30px -16px rgba(38,41,31,.9); } }
+.btn-go .spin { width: 16px; height: 16px; border: 2px solid rgba(238,237,232,.3); border-top-color: var(--gold-hi); border-radius: 50%; display: none; animation: turn .8s linear infinite; }
+.btn-go.loading .spin { display: inline-block; }
+.btn-go.loading { pointer-events: none; }
+@keyframes turn { to { transform: rotate(360deg); } }
+.btn-go.shake { animation: shake .4s; }
+.summary .note { margin-top: 14px; font-size: 13px; color: #6B6553; line-height: 1.5; }
+.warn { margin-top: 12px; font-size: 13px; color: #8A3B26; min-height: 1.2em; }
+.sent { display: none; margin-top: 16px; padding: 14px 14px 14px 56px; background: rgba(42,42,34,.08); font-size: 14px; line-height: 1.5; position: relative; }
+.sent.show { display: block; animation: rise .6s var(--ease) forwards; opacity: 0; }
+.sent svg { position: absolute; left: 14px; top: 14px; width: 28px; height: 28px; color: var(--paper-gold); }
+.sent svg path { stroke-dasharray: 40; stroke-dashoffset: 40; }
+.sent.show svg path { animation: draw .8s .2s var(--ease) forwards; }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+
+@media (max-width: 900px) {
+  .layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  /* Celular e tablet: resumo primeiro, depois serviço, dia, horário e dados */
+  .summary { position: static; order: -1; width: 100%; transform: none; animation-name: fadeIn; }
+  .steps { order: 0; }
+  .summary .tot strong { font-size: 28px; }
+}
+@media (max-width: 760px) {
+  .dw .di { width: calc(var(--s, 70px) * .5); opacity: .25; }
+  .dw { pointer-events: none; }
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@media (min-width: 901px) {
+  .summary { order: 0; }
+}
+@media (max-width: 560px) {
+  .wrap { padding: 0 16px; }
+  header.top { padding: 18px 0; }
+  .intro h1 { font-size: clamp(36px, 11vw, 48px); }
+  .intro p { font-size: 15px; }
+  .step { transform: translateY(16px); }
+  .step h2 { font-size: 26px; }
+  .svc { grid-template-columns: minmax(0, 1fr); }
+  .summary { padding: 20px 18px; }
+  .summary h2 { font-size: 26px; }
+  .cal { padding: 14px 10px 12px; }
+  .cal-wk, .cal-grid { gap: 4px; }
+  .cal-day .num { font-size: 15px; }
+  .cal-legend { gap: 10px; }
+  .slots { grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 8px; }
+}
+@media (max-width: 360px) {
+  .cal-day .hoje { display: none; }
+  .fields { grid-template-columns: minmax(0, 1fr); }
+  .btn-go { font-size: 15px; padding: 16px 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .step, .summary, .slots button, .intro h1 .ch, .intro p, .preview { opacity: 1 !important; transform: none !important; }
+}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="ic-pole" viewBox="0 0 60 120"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="16" width="32" height="92" rx="6"/><path d="M14 26H46M14 98H46M22 16Q30 4 38 16"/></g></symbol>
+    <symbol id="ic-scissors" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="28" cy="72" r="12"/><circle cx="72" cy="72" r="12"/><path d="M34 64L80 14M66 64L20 14"/></g></symbol>
+    <symbol id="ic-comb" viewBox="0 0 120 60"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="108" height="26" rx="13"/><path d="M14 34V52M30 34V52M46 34V52M62 34V52M78 34V52M94 34V52"/></g></symbol>
+    <symbol id="ic-razor" viewBox="0 0 160 60"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 30Q56 8 116 22L116 38Q56 52 10 30Z"/><rect x="116" y="20" width="36" height="20" rx="8"/></g></symbol>
+    <symbol id="ic-bottle" viewBox="0 0 60 100"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="20" y="6" width="20" height="12" rx="2"/><rect x="24" y="18" width="12" height="16"/><rect x="14" y="34" width="32" height="58" rx="8"/><path d="M18 58H42M18 70H38"/></g></symbol>
+    <symbol id="ic-brush" viewBox="0 0 60 120"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 58Q30 6 46 58Z"/><rect x="20" y="58" width="20" height="12" rx="2"/><path d="M24 70L28 112Q30 116 32 112L36 70"/></g></symbol>
+    <symbol id="ic-chair" viewBox="0 0 120 120"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="22" y="16" width="16" height="52" rx="8"/><rect x="38" y="60" width="54" height="12" rx="5"/><path d="M52 56H84M65 72V96M92 72H106V84"/><ellipse cx="65" cy="102" rx="24" ry="4"/></g></symbol>
+  </defs>
+</svg>
+
+<div class="progress" aria-hidden="true"><i id="bar"></i></div>
+
+<div class="bg" aria-hidden="true">
+  <span class="dw" data-d="1" style="left:3%;top:18%;--s:44px;--dl:0s"><svg class="di" viewBox="0 0 60 120"><use href="#ic-pole"/></svg></span>
+  <span class="dw" data-d="2" style="right:4%;top:30%;--s:70px;--dl:1.2s"><svg class="di" viewBox="0 0 100 100"><use href="#ic-scissors"/></svg></span>
+  <span class="dw" data-d="1.5" style="left:6%;top:62%;--s:90px;--dl:.6s"><svg class="di" viewBox="0 0 120 120"><use href="#ic-chair"/></svg></span>
+  <span class="dw" data-d="2.5" style="right:6%;top:72%;--s:110px;--dl:2s"><svg class="di" viewBox="0 0 160 60"><use href="#ic-razor"/></svg></span>
+  <span class="dw" data-d="1" style="left:46%;top:8%;--s:52px;--dl:1.6s"><svg class="di" viewBox="0 0 120 60"><use href="#ic-comb"/></svg></span>
+  <span class="dw" data-d="1.8" style="right:30%;bottom:6%;--s:50px;--dl:.3s"><svg class="di" viewBox="0 0 60 100"><use href="#ic-bottle"/></svg></span>
+  <span class="dw" data-d="1.2" style="left:20%;bottom:10%;--s:46px;--dl:2.6s"><svg class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
+</div>
+
+<div class="wrap">
+  <header class="top">
+    <a class="wordmark" href="index.html">Barbearia Yurt</a>
+    <a class="back" href="index.html">Voltar ao site</a>
+  </header>
+
+  <section class="intro" id="intro">
+    <h1 id="title">Agende seu horário</h1>
+    <p>Escolha o serviço, o dia e o horário livre. O pedido vai direto para o WhatsApp da Yurt, e a confirmação chega no seu WhatsApp.</p>
+    <!-- PRÉVIA: os horários ocupados são de exemplo. Ao conectar o Google Calendar, a função isBusy() passa a ler a agenda real. -->
+    <span class="preview">Prévia visual: horários de exemplo</span>
+  </section>
+
+  <div class="layout">
+    <div class="steps">
+
+      <section class="step reveal" data-step="svc">
+        <h2><span class="n">1</span>Serviços <span class="tag">pode escolher mais de um</span></h2>
+        <p class="hint">Os horários livres consideram o tempo somado de todos os serviços.</p>
+        <div class="svc" id="svc"></div>
+      </section>
+
+      <section class="step reveal" data-step="day">
+        <h2><span class="n">2</span>Dia</h2>
+        <div class="cal" id="cal"></div>
+      </section>
+
+      <section class="step reveal" data-step="slot">
+        <h2><span class="n">3</span>Horário</h2>
+        <p class="hint" id="slotHint">Escolha primeiro um serviço.</p>
+        <div class="slots" id="slots"></div>
+      </section>
+
+      <section class="step reveal" data-step="data">
+        <h2><span class="n">4</span>Seus dados</h2>
+        <div class="fields">
+          <label>Nome
+            <input id="nome" type="text" autocomplete="name" placeholder="Seu nome">
+          </label>
+          <label>WhatsApp com DDD
+            <input id="fone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(44) 99999-9999">
+          </label>
+          <label class="full">Observação (opcional)
+            <textarea id="obs" rows="3" placeholder="Algo que o Roberto precise saber"></textarea>
+          </label>
+        </div>
+      </section>
+
+    </div>
+
+    <aside class="summary" aria-label="Resumo do agendamento">
+      <h2>Resumo</h2>
+      <dl>
+        <div><dt>Serviços</dt><dd id="sumSvc">Nenhum selecionado</dd></div>
+        <div><dt>Dia e horário</dt><dd id="sumWhen">A escolher</dd></div>
+        <div><dt>Duração estimada</dt><dd id="sumDur">—</dd></div>
+      </dl>
+      <div class="tot"><span>Total</span><strong id="sumTot">R$ 0,00</strong></div>
+      <button class="btn-go" id="go" type="button"><span class="spin" aria-hidden="true"></span><span id="goTxt">Confirmar agendamento</span></button>
+      <p class="warn" id="warn" role="alert"></p>
+      <p class="sent" id="sent" role="status">
+        <svg viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="14" r="12"/><path d="M8.5 14.5l3.5 3.5 7-7.5"/></svg>
+        <span id="sentTxt"></span>
+      </p>
+      <p class="note">Pagamento via Pix. Atendimento com hora marcada, de segunda a sexta, das 8h às 18h.</p>
+    </aside>
+  </div>
+</div>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var WA = '5544999049797';
+  var HOOK = 'https://script.google.com/macros/s/AKfycbxyUT4e8L6p2Vh-SwHkdfqa86wjH421pnAtle9aJXEOYl6RO05xLVRK6ttE5dFxtg-piw/exec';
+  var OPEN = 8 * 60, CLOSE = 18 * 60, STEP = 30;
+  var WN = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+  var SEMANA = ['seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'];
+  var MESES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+  var MESES_LONGOS = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+
+  // Duração em minutos: valores de exemplo, a confirmar com o Roberto
+  var SERVICES = [
+    { id: 'corte-m', name: 'Corte masculino personalizado', min: 45, price: 100 },
+    { id: 'corte-s', name: 'Corte simples (só máquina)', min: 30, price: 60 },
+    { id: 'lav', name: 'Lavagem especial e finalização', min: 20, price: 55 },
+    { id: 'barbo', name: 'Barboterapia completa', min: 40, price: 100 },
+    { id: 'barba-a', name: 'Alinhamento e aparar barba', min: 20, price: 55 },
+    { id: 'bigode', name: 'Desenho e alinhamento de bigode', min: 15, price: 45 },
+    { id: 'sobr', name: 'Design de sobrancelha', min: 10, price: 35 },
+    { id: 'combo', name: 'Combo Yurt (corte e barba completa)', min: 75, price: 190 }
+  ];
+
+  var picked = new Set();
+  var day = null, slot = null, shownTotal = 0, slotsKey = '';
+
+  function $(id) { return document.getElementById(id); }
+  function fmt(m) { var h = Math.floor(m / 60), mm = m % 60; return h + 'h' + (mm ? String(mm).padStart(2, '0') : '00'); }
+  function brl(v) { return 'R$ ' + v.toFixed(2).replace('.', ','); }
+  function find(id) { return SERVICES.filter(function (s) { return s.id === id; })[0]; }
+  function totalDur() { var t = 0; picked.forEach(function (id) { t += find(id).min; }); return t; }
+  function totalPrice() { var t = 0; picked.forEach(function (id) { t += find(id).price; }); return t; }
+  function pad2(n) { return String(n).padStart(2, '0'); }
+  function dayLabel(x) { return WN[x.getDay()] + ' ' + pad2(x.getDate()) + '/' + pad2(x.getMonth() + 1); }
+  function pop(el) { el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop'); }
+  function flash(el) { el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash'); }
+
+  var NOW = new Date();
+  var TODAY = new Date(NOW); TODAY.setHours(0, 0, 0, 0);
+  var NOW_MIN = NOW.getHours() * 60 + NOW.getMinutes();
+
+  // Janela de 30 dias a partir de hoje (inclui sábados e domingos, que aparecem fechados)
+  var DAYS = (function () {
+    var out = [];
+    for (var i = 0; i < 30; i++) { var x = new Date(TODAY); x.setDate(TODAY.getDate() + i); out.push(x); }
+    return out;
+  })();
+
+  function isWorkday(x) { return x.getDay() !== 0 && x.getDay() !== 6; }
+  // Hoje só aceita horário que ainda não passou
+  function dayOpen(i) { return isWorkday(DAYS[i]) && (i !== 0 || NOW_MIN < CLOSE - STEP); }
+
+  // EXEMPLO: troca por leitura da agenda do Google Calendar
+  function isBusy(dayIndex, m) { return ((dayIndex * 7 + m / STEP) % 5 === 0); }
+  function fits(dayIndex, start, dur) {
+    if (!dayOpen(dayIndex)) return false;
+    if (dayIndex === 0 && start < NOW_MIN) return false;
+    if (start + dur > CLOSE) return false;
+    for (var m = start; m < start + dur; m += STEP) if (isBusy(dayIndex, m)) return false;
+    return true;
+  }
+
+  // Título com letras entrando uma a uma
+  (function splitTitle() {
+    var t = $('title'), txt = t.textContent; t.textContent = '';
+    txt.split('').forEach(function (c, i) {
+      var s = document.createElement('span'); s.className = 'ch'; s.style.setProperty('--i', i);
+      s.textContent = c === ' ' ? ' ' : c; t.appendChild(s);
+    });
+  })();
+
+  // Serviços: cartões criados uma vez
+  function buildServices() {
+    var el = $('svc');
+    SERVICES.forEach(function (s) {
+      var lab = document.createElement('label');
+      var cb = document.createElement('input'); cb.type = 'checkbox';
+      var nm = document.createElement('span'); nm.className = 'nm'; nm.textContent = s.name;
+      var meta = document.createElement('span'); meta.className = 'meta';
+      var d = document.createElement('span'); d.textContent = s.min + ' min';
+      var p = document.createElement('b'); p.textContent = brl(s.price);
+      var tick = document.createElement('span'); tick.className = 'tick';
+      meta.appendChild(d); meta.appendChild(p);
+      lab.appendChild(cb); lab.appendChild(tick); lab.appendChild(nm); lab.appendChild(meta);
+      cb.addEventListener('change', function () {
+        if (cb.checked) picked.add(s.id); else picked.delete(s.id);
+        slot = null; pop(lab); update();
+      });
+      if (!reduce) {
+        lab.addEventListener('pointermove', function (e) {
+          var r = lab.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+          lab.style.transform = 'perspective(700px) rotateX(' + (-y * 6) + 'deg) rotateY(' + (x * 8) + 'deg) translateY(-2px)';
+        });
+        lab.addEventListener('pointerleave', function () { lab.style.transform = ''; });
+      }
+      el.appendChild(lab);
+      lab._cb = cb; lab._id = s.id;
+    });
+  }
+
+  // Calendário de 30 dias em semanas de segunda a domingo
+  function buildCal() {
+    var root = $('cal');
+    root.innerHTML = '';
+
+    var head = document.createElement('div'); head.className = 'cal-head';
+    var lbl = document.createElement('span'); lbl.className = 'lbl';
+    var last = DAYS[DAYS.length - 1];
+    lbl.textContent = DAYS[0].getDate() + ' de ' + MESES_LONGOS[DAYS[0].getMonth()] + ' a ' + last.getDate() + ' de ' + MESES_LONGOS[last.getMonth()];
+    var janela = document.createElement('span'); janela.className = 'janela'; janela.textContent = 'próximos 30 dias';
+    head.appendChild(lbl); head.appendChild(janela);
+
+    var wk = document.createElement('div'); wk.className = 'cal-wk';
+    SEMANA.forEach(function (s) { var sp = document.createElement('span'); sp.textContent = s; wk.appendChild(sp); });
+
+    var grid = document.createElement('div'); grid.className = 'cal-grid'; grid.id = 'calGrid';
+
+    // Preenche a primeira semana com espaços vazios até a segunda-feira
+    var off = (DAYS[0].getDay() + 6) % 7;
+    var cells = Math.ceil((off + DAYS.length) / 7) * 7;
+    for (var c = 0; c < cells; c++) {
+      var idx = c - off;
+      var cell = document.createElement('div'); cell.className = 'cal-cell';
+      if (idx < 0 || idx >= DAYS.length) {
+        cell.classList.add('blank');
+      } else {
+        var x = DAYS[idx];
+        var b = document.createElement('button');
+        b.type = 'button'; b.className = 'cal-day'; b._i = idx;
+        b.setAttribute('aria-label', dayLabel(x));
+        var n = document.createElement('span'); n.className = 'num'; n.textContent = x.getDate();
+        var h = document.createElement('span'); h.className = 'hoje';
+        h.textContent = idx === 0 ? 'hoje' : '';
+        b.appendChild(n); b.appendChild(h);
+        b.addEventListener('click', function (e) {
+          var i = e.currentTarget._i;
+          if (e.currentTarget.disabled) return;
+          day = (day === i) ? null : i;
+          slot = null; pop(e.currentTarget); update();
+        });
+        cell.appendChild(b);
+      }
+      grid.appendChild(cell);
+    }
+
+    var foot = document.createElement('p'); foot.className = 'cal-foot'; foot.id = 'calFoot';
+    var legend = document.createElement('div'); legend.className = 'cal-legend';
+    legend.innerHTML = '<span><i></i>disponível</span><span><i class="off"></i>fechado ou passado</span><span><i class="sel"></i>escolhido</span>';
+
+    root.appendChild(head); root.appendChild(wk); root.appendChild(grid); root.appendChild(foot); root.appendChild(legend);
+  }
+
+  function renderCal() {
+    Array.prototype.forEach.call($('calGrid').querySelectorAll('.cal-day'), function (b) {
+      var i = b._i, open = dayOpen(i);
+      b.disabled = !open;
+      b.setAttribute('aria-pressed', day === i ? 'true' : 'false');
+    });
+    var foot = $('calFoot');
+    foot.innerHTML = '';
+    if (day !== null) {
+      foot.appendChild(document.createTextNode('Dia escolhido: '));
+      var bb = document.createElement('b'); bb.textContent = dayLabel(DAYS[day]);
+      foot.appendChild(bb);
+      foot.appendChild(document.createTextNode('. Toque de novo para trocar.'));
+    } else {
+      foot.textContent = 'Escolha uma data disponível. Sábados e domingos ficam fechados.';
+    }
+  }
+
+  // Horários: reconstruídos só quando a duração ou o dia mudam
+  function renderSlots() {
+    var el = $('slots'), hint = $('slotHint');
+    if (!picked.size || day === null) {
+      el.innerHTML = ''; slotsKey = '';
+      hint.textContent = !picked.size ? 'Escolha primeiro um serviço.' : 'Escolha primeiro um dia.';
+      return;
+    }
+    var dur = totalDur(), key = dur + '|' + day;
+    if (key !== slotsKey) {
+      slotsKey = key; el.innerHTML = '';
+      var i = 0;
+      for (var m = OPEN; m < CLOSE; m += STEP, i++) {
+        var b = document.createElement('button');
+        b.type = 'button'; b.textContent = fmt(m); b._m = m;
+        b.style.setProperty('--i', i);
+        b.addEventListener('click', function (e) {
+          var target = e.currentTarget;
+          if (target.disabled) return;
+          slot = (slot === target._m) ? null : target._m;
+          var r = document.createElement('span'); r.className = 'ripple';
+          var rect = target.getBoundingClientRect(), size = Math.max(rect.width, rect.height);
+          r.style.width = r.style.height = size + 'px';
+          r.style.left = (e.clientX - rect.left - size / 2) + 'px';
+          r.style.top = (e.clientY - rect.top - size / 2) + 'px';
+          target.appendChild(r); setTimeout(function () { r.remove(); }, 650);
+          update();
+        });
+        el.appendChild(b);
+        requestAnimationFrame((function (bt) { return function () { bt.classList.add('show'); }; })(b));
+      }
+    }
+    var free = 0;
+    Array.prototype.forEach.call(el.children, function (b) {
+      var ok = fits(day, b._m, dur);
+      if (ok) free++;
+      b.disabled = !ok;
+      b.setAttribute('aria-pressed', slot === b._m ? 'true' : 'false');
+    });
+    hint.textContent = free
+      ? 'Duração de ' + dur + ' min. Os horários em destaque estão livres.'
+      : 'Nenhum horário livre para esse dia com essa duração. Tente outro dia.';
+  }
+
+  function dataOk() {
+    return $('nome').value.trim().length > 1 && $('fone').value.replace(/\D/g, '').length >= 10;
+  }
+
+  function missing() {
+    var m = [];
+    if (!picked.size) m.push('serviço');
+    if (day === null) m.push('dia');
+    if (slot === null) m.push('horário');
+    if (!$('nome').value.trim()) m.push('nome');
+    if ($('fone').value.replace(/\D/g, '').length < 10) m.push('WhatsApp');
+    return m;
+  }
+
+  function animateTotal(to) {
+    if (reduce) { $('sumTot').textContent = brl(to); shownTotal = to; return; }
+    var from = shownTotal, start = null;
+    function step(t) {
+      if (start === null) start = t;
+      var k = Math.min((t - start) / 450, 1), e = 1 - Math.pow(1 - k, 3);
+      $('sumTot').textContent = brl(from + (to - from) * e);
+      if (k < 1) requestAnimationFrame(step); else shownTotal = to;
+    }
+    requestAnimationFrame(step);
+  }
+
+  function setText(id, v) {
+    var el = $(id);
+    if (el.textContent !== v) { el.textContent = v; flash(el); }
+  }
+
+  function renderSummary() {
+    var names = [];
+    picked.forEach(function (id) { names.push(find(id).name); });
+    setText('sumSvc', names.length ? names.join(', ') : 'Nenhum selecionado');
+    var when;
+    if (day !== null && slot !== null) when = dayLabel(DAYS[day]) + ', às ' + fmt(slot);
+    else if (day !== null) when = dayLabel(DAYS[day]) + ', escolha o horário';
+    else when = 'A escolher';
+    setText('sumWhen', when);
+    setText('sumDur', picked.size ? totalDur() + ' min' : '—');
+    animateTotal(totalPrice());
+    var anyChoice = picked.size > 0 || day !== null || slot !== null;
+    $('go').classList.toggle('live', anyChoice);
+  }
+
+  function updateProgress() {
+    var flags = [picked.size > 0, day !== null, slot !== null, dataOk()];
+    var done = flags.filter(Boolean).length;
+    $('bar').style.width = (done / 4 * 100) + '%';
+    document.querySelectorAll('.step').forEach(function (s, i) { s.classList.toggle('done', flags[i]); });
+  }
+
+  function buildCheck() {
+    Array.prototype.forEach.call($('svc').children, function (lab) {
+      var on = picked.has(lab._id);
+      lab._cb.checked = on; lab.classList.toggle('on', on);
+    });
+  }
+
+  function update() {
+    buildCheck();
+    renderCal(); renderSlots(); renderSummary(); updateProgress();
+  }
+
+  // Telefone com máscara (44) 99999-9999
+  $('fone').addEventListener('input', function (e) {
+    var d = e.target.value.replace(/\D/g, '').slice(0, 11), out = '';
+    if (d.length) out = '(' + d.slice(0, 2);
+    if (d.length >= 3) out += ') ' + d.slice(2, 7);
+    if (d.length >= 8) out += '-' + d.slice(7);
+    e.target.value = out;
+    update();
+  });
+  $('nome').addEventListener('input', function () { update(); });
+
+  $('go').addEventListener('click', function () {
+    var btn = $('go');
+    var m = missing();
+    if (m.length) {
+      $('warn').textContent = 'Falta: ' + m.join(', ') + '.';
+      btn.classList.remove('shake'); void btn.offsetWidth; btn.classList.add('shake');
+      if (!$('nome').value.trim()) { $('nome').classList.add('bad'); setTimeout(function () { $('nome').classList.remove('bad'); }, 500); }
+      if ($('fone').value.replace(/\D/g, '').length < 10) { $('fone').classList.add('bad'); setTimeout(function () { $('fone').classList.remove('bad'); }, 500); }
+      return;
+    }
+    $('warn').textContent = '';
+    btn.classList.add('loading');
+    $('goTxt').textContent = 'Enviando pedido...';
+    var d = DAYS[day];
+    var pad = function (n) { return (n < 10 ? '0' : '') + n; };
+    var dateIso = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    var startIso = dateIso + 'T' + pad(Math.floor(slot / 60)) + ':' + pad(slot % 60) + ':00-03:00';
+    var endMin = slot + totalDur();
+    var endIso = dateIso + 'T' + pad(Math.floor(endMin / 60)) + ':' + pad(endMin % 60) + ':00-03:00';
+    var payload = {
+      nome: $('nome').value.trim(),
+      whatsapp: $('fone').value.trim(),
+      servicos: picked.size ? Array.from(picked).map(function (id) { return find(id).name; }).join(' + ') : '',
+      duracao_min: totalDur(),
+      valor_total: brl(totalPrice()),
+      data: dayLabel(d),
+      data_iso: dateIso,
+      horario: fmt(slot),
+      inicio_iso: startIso,
+      fim_iso: endIso,
+      observacao: $('obs').value.trim(),
+      status: 'PENDENTE'
+    };
+    setTimeout(function () {
+      fetch(HOOK, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      }).then(function () {
+        btn.classList.remove('loading');
+        btn.disabled = true;
+        $('goTxt').textContent = 'Pedido enviado';
+        $('sentTxt').textContent = 'Pedido recebido. O Roberto confirma o horário em seguida.';
+        $('sent').classList.add('show');
+      }).catch(function () {
+        btn.classList.remove('loading');
+        $('goTxt').textContent = 'Confirmar agendamento';
+        $('warn').textContent = 'Não consegui enviar o pedido. Tente de novo.';
+      });
+    }, reduce ? 0 : 700);
+  });
+
+  // Botão com leve atração pelo cursor
+  if (!reduce) {
+    document.querySelectorAll('.btn-go').forEach(function (b) {
+      b.addEventListener('pointermove', function (e) {
+        var r = b.getBoundingClientRect();
+        b.style.transform = 'translate(' + ((e.clientX - r.left - r.width / 2) * .08) + 'px,' + ((e.clientY - r.top - r.height / 2) * .15) + 'px)';
+      });
+      b.addEventListener('pointerleave', function () { b.style.transform = ''; });
+    });
+  }
+
+  // Luz que segue o cursor no topo
+  var intro = $('intro');
+  intro.addEventListener('pointermove', function (e) {
+    var r = intro.getBoundingClientRect();
+    intro.style.setProperty('--x', (e.clientX - r.left) + 'px');
+    intro.style.setProperty('--y', (e.clientY - r.top) + 'px');
+  });
+
+  // Desenhos de fundo: seguem o cursor com profundidades diferentes e giram ao clicar
+  var decos = Array.prototype.slice.call(document.querySelectorAll('.dw'));
+  if (!reduce) {
+    var mx = 0, my = 0, raf = false;
+    window.addEventListener('pointermove', function (e) {
+      mx = e.clientX / window.innerWidth - .5;
+      my = e.clientY / window.innerHeight - .5;
+      if (raf) return; raf = true;
+      requestAnimationFrame(function () {
+        raf = false;
+        decos.forEach(function (d) {
+          var k = parseFloat(d.dataset.d) || 1;
+          d.style.transform = 'translate3d(' + (mx * -26 * k) + 'px,' + (my * -26 * k) + 'px,0)';
+        });
+      });
+    }, { passive: true });
+    decos.forEach(function (d) {
+      d.addEventListener('click', function () {
+        d.animate([{ rotate: '0deg' }, { rotate: '360deg' }], { duration: 900, easing: 'cubic-bezier(.2,.7,.2,1)' });
+      });
+    });
+  }
+
+  // Entrada das seções ao rolar
+  var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 }) : null;
+  document.querySelectorAll('.reveal').forEach(function (el) { if (io) io.observe(el); else el.classList.add('in'); });
+
+  buildServices();
+  buildCal();
+  update();
+})();
+</script>
+</body>
+</html>
