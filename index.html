@@ -106,6 +106,9 @@ section.deep { background: linear-gradient(180deg, var(--ink) 0, var(--ink-deep)
 .menu-m .menu-sub { margin-top: 6px; font-size: 14px; }
 .menu-m-group { margin-top: 30px; min-width: 0; }
 .menu-m-group h3 { color: var(--paper-gold); font-style: italic; font-size: clamp(22px, 6.5vw, 26px); margin-bottom: 6px; padding-bottom: 10px; border-bottom: 1px solid rgba(122,83,34,.35); }
+.links a { display: flex; align-items: center; gap: 14px; }
+.links svg { width: 22px; height: 22px; flex: 0 0 auto; color: var(--gold); transition: transform .5s var(--ease), color .3s; }
+.links a:hover svg { transform: rotate(-10deg) scale(1.18); color: var(--gold-hi); }
 .menu-m-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; padding: 13px 0; border-bottom: 1px dotted rgba(42,42,34,.28); min-width: 0; }
 .menu-m-item .n { flex: 1 1 0; min-width: 0; font-size: clamp(15px, 4.3vw, 17px); line-height: 1.35; overflow-wrap: anywhere; }
 .menu-m-item .n small { display: block; font-size: clamp(12.5px, 3.7vw, 14px); color: #6B6553; }
@@ -378,6 +381,9 @@ footer .seal { width: 54px; height: 54px; }
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
     <clipPath id="pole-clip"><rect x="14" y="16" width="32" height="92" rx="6"/></clipPath>
+    <symbol id="ic-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.6"/></g></symbol>
+    <symbol id="ic-whats" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-4A8.5 8.5 0 1 1 8 18.7L4 20z"/><path d="M9 9.5c.3 2 2.5 4.2 4.6 4.7l1-1.2 2 .9-.6 1.5c-2.6.4-7-2.6-7.6-5.6l.8-.9z"/></g></symbol>
+    <symbol id="ic-insta" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".8"/></g></symbol>
     <symbol id="ic-pole" viewBox="0 0 60 120"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="16" width="32" height="92" rx="6" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--p,100))"/><path d="M14 26H46M14 98H46M22 16Q30 4 38 16" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--p,100))"/><g clip-path="url(#pole-clip)"><path d="M6 30L54 6M6 52L54 28M6 74L54 50M6 96L54 72M6 118L54 94" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--p,100))"/></g></g></symbol>
     <symbol id="ic-scissors" viewBox="0 0 100 100"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="28" cy="72" r="12" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--p,100))"/><circle cx="72" cy="72" r="12" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--p,100))"/><path d="M34 64L80 14M66 64L20 14" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--p,100))"/></g></symbol>
     <symbol id="ic-comb" viewBox="0 0 120 60"><g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="8" width="108" height="26" rx="13" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--p,100))"/><path d="M14 34V52M22 34V52M30 34V52M38 34V52M46 34V52M54 34V52M62 34V52M70 34V52M78 34V52M86 34V52M94 34V52M102 34V52" pathLength="100" style="stroke-dasharray:100;stroke-dashoffset:calc(100 - var(--p,100))"/></g></symbol>
@@ -664,9 +670,9 @@ footer .seal { width: 54px; height: 54px; }
         <p class="address">R. Luiz Gama, 933, Loja 2<br>Maringá, PR</p>
       </div>
       <div class="links">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=R.+Luiz+Gama,+933,+Maringa,+PR" target="_blank" rel="noopener">Ver no Google Maps</a>
-        <a href="https://wa.me/5544999049797" target="_blank" rel="noopener">+55 44 99904-9797, no WhatsApp</a>
-        <a href="https://www.instagram.com/barbeariayurt/" target="_blank" rel="noopener">@barbeariayurt, no Instagram</a>
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=R.+Luiz+Gama,+933,+Maringa,+PR" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-pin"/></svg>Ver no Google Maps</a>
+        <a href="https://wa.me/5544999049797" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-whats"/></svg>+55 44 99904-9797, no WhatsApp</a>
+        <a href="https://www.instagram.com/barbeariayurt/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-insta"/></svg>@barbeariayurt, no Instagram</a>
       </div>
     </div>
   </section>
