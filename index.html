@@ -5,7 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Barbearia Yurt</title>
 <link rel="icon" type="image/png" href="img/logo.png">
-<style>.logo-mark { width: 40px; height: 40px; border-radius: 50%; vertical-align: middle; margin-right: 10px; }</style>
+<style>
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 999; background: #F3B25D; color: #1B1D16; padding: 10px 14px; border-radius: 4px; font: 600 14px/1 sans-serif; }
+.skip:focus { left: 12px; }
+:focus-visible { outline: 2px solid #F3B25D; outline-offset: 3px; }
+.menu-group li:focus-visible, .rail:focus-visible { outline: 2px solid #F3B25D; outline-offset: 4px; }
+.logo-mark { width: 40px; height: 40px; border-radius: 50%; vertical-align: middle; margin-right: 10px; }</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -277,7 +282,7 @@ footer .frame { display: flex; justify-content: space-between; flex-wrap: wrap; 
 
 
 /* Elementos visuais da marca */
-.grain { position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .08; mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
+.grain { position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .08; mix-blend-mode: overlay; background-image: url("data:image/svg+xml;utf8,<svg aria-hidden="true" xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); }
 
 .ticker { background: var(--gold); color: var(--ink-deep); overflow: hidden; padding: 20px 0; }
 .ticker .track { display: flex; align-items: center; gap: 28px; width: max-content; font: 500 clamp(22px, 2.6vw, 32px)/1 var(--display); font-variation-settings: "opsz" 28; white-space: nowrap; animation: slide 38s linear infinite; }
@@ -380,6 +385,7 @@ footer .seal { width: 54px; height: 54px; }
 </style>
 </head>
 <body>
+<a class="skip" href="#servicos">Pular para os serviços</a>
 <div class="grain" aria-hidden="true"></div>
 
 <!-- Desenhos de barbearia usados nos espaços vazios (traçado dourado, sem créditos) -->
@@ -434,8 +440,8 @@ footer .seal { width: 54px; height: 54px; }
 
   <section id="servicos">
     <div class="deco" aria-hidden="true">
-      <span class="dw" style="left:2%;top:14%;--s:44px;--dl:0s"><svg class="di" viewBox="0 0 60 120"><use href="#ic-pole"/></svg></span>
-      <span class="dw" style="right:3%;bottom:10%;--s:96px;--dl:1.4s"><svg class="di" viewBox="0 0 100 100"><use href="#ic-scissors"/></svg></span>
+      <span class="dw" style="left:2%;top:14%;--s:44px;--dl:0s"><svg aria-hidden="true" class="di" viewBox="0 0 60 120"><use href="#ic-pole"/></svg></span>
+      <span class="dw" style="right:3%;bottom:10%;--s:96px;--dl:1.4s"><svg aria-hidden="true" class="di" viewBox="0 0 100 100"><use href="#ic-scissors"/></svg></span>
     </div>
     <div class="frame">
       <div class="menu-head">
@@ -547,8 +553,8 @@ footer .seal { width: 54px; height: 54px; }
 
   <section class="deep" aria-label="Galeria">
     <div class="deco" aria-hidden="true">
-      <span class="dw" style="left:4%;bottom:8%;--s:150px;--dl:.6s"><svg class="di" viewBox="0 0 120 60"><use href="#ic-comb"/></svg></span>
-      <span class="dw" style="right:5%;top:10%;--s:56px;--dl:2s"><svg class="di" viewBox="0 0 60 100"><use href="#ic-bottle"/></svg></span>
+      <span class="dw" style="left:4%;bottom:8%;--s:150px;--dl:.6s"><svg aria-hidden="true" class="di" viewBox="0 0 120 60"><use href="#ic-comb"/></svg></span>
+      <span class="dw" style="right:5%;top:10%;--s:56px;--dl:2s"><svg aria-hidden="true" class="di" viewBox="0 0 60 100"><use href="#ic-bottle"/></svg></span>
     </div>
     <div class="frame catalogo">
       <div class="cat-head">
@@ -587,8 +593,8 @@ footer .seal { width: 54px; height: 54px; }
 
   <section id="clube">
     <div class="deco" aria-hidden="true">
-      <span class="dw" style="left:2%;top:6%;--s:84px;--dl:1s"><svg class="di" viewBox="0 0 120 120"><use href="#ic-chair"/></svg></span>
-      <span class="dw" style="right:3%;bottom:6%;--s:140px;--dl:.3s"><svg class="di" viewBox="0 0 160 60"><use href="#ic-razor"/></svg></span>
+      <span class="dw" style="left:2%;top:6%;--s:84px;--dl:1s"><svg aria-hidden="true" class="di" viewBox="0 0 120 120"><use href="#ic-chair"/></svg></span>
+      <span class="dw" style="right:3%;bottom:6%;--s:140px;--dl:.3s"><svg aria-hidden="true" class="di" viewBox="0 0 160 60"><use href="#ic-razor"/></svg></span>
     </div>
     <div class="frame club">
       <div>
@@ -611,8 +617,8 @@ footer .seal { width: 54px; height: 54px; }
 
   <section id="sobre" class="deep">
     <div class="deco" aria-hidden="true">
-      <span class="dw" style="right:3%;top:10%;--s:40px;--dl:1.8s"><svg class="di" viewBox="0 0 60 120"><use href="#ic-pole"/></svg></span>
-      <span class="dw" style="left:3%;bottom:12%;--s:52px;--dl:.9s"><svg class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
+      <span class="dw" style="right:3%;top:10%;--s:40px;--dl:1.8s"><svg aria-hidden="true" class="di" viewBox="0 0 60 120"><use href="#ic-pole"/></svg></span>
+      <span class="dw" style="left:3%;bottom:12%;--s:52px;--dl:.9s"><svg aria-hidden="true" class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
     </div>
     <div class="frame about">
       <svg class="mustache" viewBox="0 0 240 90" aria-hidden="true"><path class="draw" pathLength="100" d="M120 46 C104 30 80 26 56 34 C42 38 34 30 26 18 C36 40 50 56 78 58 C98 60 110 54 120 46 Z"/><path class="draw" pathLength="100" d="M120 46 C136 30 160 26 184 34 C198 38 206 30 214 18 C204 40 190 56 162 58 C142 60 130 54 120 46 Z"/></svg>
@@ -628,8 +634,8 @@ footer .seal { width: 54px; height: 54px; }
 
   <section id="horarios">
     <div class="deco" aria-hidden="true">
-      <span class="dw" style="right:4%;top:12%;--s:50px;--dl:2.2s"><svg class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
-      <span class="dw" style="left:3%;bottom:8%;--s:100px;--dl:.5s"><svg class="di" viewBox="0 0 120 120"><use href="#ic-chair"/></svg></span>
+      <span class="dw" style="right:4%;top:12%;--s:50px;--dl:2.2s"><svg aria-hidden="true" class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
+      <span class="dw" style="left:3%;bottom:8%;--s:100px;--dl:.5s"><svg aria-hidden="true" class="di" viewBox="0 0 120 120"><use href="#ic-chair"/></svg></span>
     </div>
     <div class="frame hours">
       <h2>Horários</h2>
@@ -647,8 +653,8 @@ footer .seal { width: 54px; height: 54px; }
 
   <section id="agendar" class="deep">
     <div class="deco" aria-hidden="true">
-      <span class="dw" style="left:2%;top:10%;--s:80px;--dl:1.2s"><svg class="di" viewBox="0 0 100 100"><use href="#ic-scissors"/></svg></span>
-      <span class="dw" style="right:3%;bottom:8%;--s:120px;--dl:2.6s"><svg class="di" viewBox="0 0 120 60"><use href="#ic-comb"/></svg></span>
+      <span class="dw" style="left:2%;top:10%;--s:80px;--dl:1.2s"><svg aria-hidden="true" class="di" viewBox="0 0 100 100"><use href="#ic-scissors"/></svg></span>
+      <span class="dw" style="right:3%;bottom:8%;--s:120px;--dl:2.6s"><svg aria-hidden="true" class="di" viewBox="0 0 120 60"><use href="#ic-comb"/></svg></span>
     </div>
     <div class="frame book-line">
       <div>
@@ -666,8 +672,8 @@ footer .seal { width: 54px; height: 54px; }
 
   <section id="contato">
     <div class="deco" aria-hidden="true">
-      <span class="dw" style="right:5%;top:14%;--s:50px;--dl:.4s"><svg class="di" viewBox="0 0 60 100"><use href="#ic-bottle"/></svg></span>
-      <span class="dw" style="left:4%;bottom:12%;--s:48px;--dl:1.6s"><svg class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
+      <span class="dw" style="right:5%;top:14%;--s:50px;--dl:.4s"><svg aria-hidden="true" class="di" viewBox="0 0 60 100"><use href="#ic-bottle"/></svg></span>
+      <span class="dw" style="left:4%;bottom:12%;--s:48px;--dl:1.6s"><svg aria-hidden="true" class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
     </div>
     <div class="frame visit">
       <div>

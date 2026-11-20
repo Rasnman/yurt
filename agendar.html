@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Agendar horário | Barbearia Yurt</title>
 <link rel="icon" type="image/png" href="img/logo.png">
-<style>.logo-mark { width: 40px; height: 40px; border-radius: 50%; vertical-align: middle; margin-right: 10px; }</style>
+<style>
+.skip { position: absolute; left: -9999px; top: 8px; z-index: 999; background: var(--gold-hi, #F3B25D); color: #1B1D16; padding: 10px 14px; border-radius: 4px; font: 600 14px/1 sans-serif; }
+.skip:focus { left: 12px; }
+:focus-visible { outline: 2px solid #F3B25D; outline-offset: 3px; }
+.logo-mark { width: 40px; height: 40px; border-radius: 50%; vertical-align: middle; margin-right: 10px; }</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -160,7 +164,7 @@ header.top { display: flex; justify-content: space-between; align-items: center;
 @keyframes turn { to { transform: rotate(360deg); } }
 .btn-go.shake { animation: shake .4s; }
 .summary .note { margin-top: 14px; font-size: 13px; color: #6B6553; line-height: 1.5; }
-.warn { margin-top: 12px; font-size: 13px; color: #8A3B26; min-height: 1.2em; }
+.warn { margin-top: 12px; font-size: 13px; color: #E0826A; min-height: 1.2em; }
 .sent { display: none; margin-top: 16px; padding: 14px 14px 14px 56px; background: rgba(42,42,34,.08); font-size: 14px; line-height: 1.5; position: relative; }
 .sent.show { display: block; animation: rise .6s var(--ease) forwards; opacity: 0; }
 .sent svg { position: absolute; left: 14px; top: 14px; width: 28px; height: 28px; color: var(--paper-gold); }
@@ -211,6 +215,7 @@ header.top { display: flex; justify-content: space-between; align-items: center;
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Pular para o formulário</a>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <defs>
@@ -227,13 +232,13 @@ header.top { display: flex; justify-content: space-between; align-items: center;
 <div class="progress" aria-hidden="true"><i id="bar"></i></div>
 
 <div class="bg" aria-hidden="true">
-  <span class="dw" data-d="1" style="left:3%;top:18%;--s:44px;--dl:0s"><svg class="di" viewBox="0 0 60 120"><use href="#ic-pole"/></svg></span>
-  <span class="dw" data-d="2" style="right:4%;top:30%;--s:70px;--dl:1.2s"><svg class="di" viewBox="0 0 100 100"><use href="#ic-scissors"/></svg></span>
-  <span class="dw" data-d="1.5" style="left:6%;top:62%;--s:90px;--dl:.6s"><svg class="di" viewBox="0 0 120 120"><use href="#ic-chair"/></svg></span>
-  <span class="dw" data-d="2.5" style="right:6%;top:72%;--s:110px;--dl:2s"><svg class="di" viewBox="0 0 160 60"><use href="#ic-razor"/></svg></span>
-  <span class="dw" data-d="1" style="left:46%;top:8%;--s:52px;--dl:1.6s"><svg class="di" viewBox="0 0 120 60"><use href="#ic-comb"/></svg></span>
-  <span class="dw" data-d="1.8" style="right:30%;bottom:6%;--s:50px;--dl:.3s"><svg class="di" viewBox="0 0 60 100"><use href="#ic-bottle"/></svg></span>
-  <span class="dw" data-d="1.2" style="left:20%;bottom:10%;--s:46px;--dl:2.6s"><svg class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
+  <span class="dw" data-d="1" style="left:3%;top:18%;--s:44px;--dl:0s"><svg aria-hidden="true" class="di" viewBox="0 0 60 120"><use href="#ic-pole"/></svg></span>
+  <span class="dw" data-d="2" style="right:4%;top:30%;--s:70px;--dl:1.2s"><svg aria-hidden="true" class="di" viewBox="0 0 100 100"><use href="#ic-scissors"/></svg></span>
+  <span class="dw" data-d="1.5" style="left:6%;top:62%;--s:90px;--dl:.6s"><svg aria-hidden="true" class="di" viewBox="0 0 120 120"><use href="#ic-chair"/></svg></span>
+  <span class="dw" data-d="2.5" style="right:6%;top:72%;--s:110px;--dl:2s"><svg aria-hidden="true" class="di" viewBox="0 0 160 60"><use href="#ic-razor"/></svg></span>
+  <span class="dw" data-d="1" style="left:46%;top:8%;--s:52px;--dl:1.6s"><svg aria-hidden="true" class="di" viewBox="0 0 120 60"><use href="#ic-comb"/></svg></span>
+  <span class="dw" data-d="1.8" style="right:30%;bottom:6%;--s:50px;--dl:.3s"><svg aria-hidden="true" class="di" viewBox="0 0 60 100"><use href="#ic-bottle"/></svg></span>
+  <span class="dw" data-d="1.2" style="left:20%;bottom:10%;--s:46px;--dl:2.6s"><svg aria-hidden="true" class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
 </div>
 
 <div class="wrap">
@@ -249,7 +254,7 @@ header.top { display: flex; justify-content: space-between; align-items: center;
     <span class="preview">Prévia visual: horários de exemplo</span>
   </section>
 
-  <div class="layout">
+  <div class="layout" id="main">
     <div class="steps">
 
       <section class="step reveal" data-step="svc">
