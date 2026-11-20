@@ -109,6 +109,8 @@ section.deep { background: linear-gradient(180deg, var(--ink) 0, var(--ink-deep)
 .links a { display: flex; align-items: center; gap: 14px; }
 .links svg { width: 22px; height: 22px; flex: 0 0 auto; color: var(--gold); transition: transform .5s var(--ease), color .3s; }
 .links a:hover svg { transform: rotate(-10deg) scale(1.18); color: var(--gold-hi); }
+.about-list > div > svg { display: block; width: 30px; height: 30px; margin-bottom: 12px; color: var(--gold); transition: transform .5s var(--ease); }
+.about-list > div:hover > svg { transform: translateY(-4px) rotate(-6deg); }
 .menu-m-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; padding: 13px 0; border-bottom: 1px dotted rgba(42,42,34,.28); min-width: 0; }
 .menu-m-item .n { flex: 1 1 0; min-width: 0; font-size: clamp(15px, 4.3vw, 17px); line-height: 1.35; overflow-wrap: anywhere; }
 .menu-m-item .n small { display: block; font-size: clamp(12.5px, 3.7vw, 14px); color: #6B6553; }
@@ -613,10 +615,10 @@ footer .seal { width: 54px; height: 54px; }
       <svg class="mustache" viewBox="0 0 240 90" aria-hidden="true"><path class="draw" pathLength="100" d="M120 46 C104 30 80 26 56 34 C42 38 34 30 26 18 C36 40 50 56 78 58 C98 60 110 54 120 46 Z"/><path class="draw" pathLength="100" d="M120 46 C136 30 160 26 184 34 C198 38 206 30 214 18 C204 40 190 56 162 58 C142 60 130 54 120 46 Z"/></svg>
       <p class="statement">"Não é terapia, <em>mas é terapêutico.</em>"</p>
       <div class="about-list">
-        <div><strong>Atendimento individual</strong><span>Foco total em você, sem pressa.</span></div>
-        <div><strong>Produtos Keune</strong><span>Linha de alta performance, usada em todos os cuidados.</span></div>
-        <div><strong>Hora marcada</strong><span>Seu tempo é respeitado do início ao fim.</span></div>
-        <div><strong>15 anos de cadeira</strong><span>Experiência para entender o seu estilo e a sua rotina.</span></div>
+        <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></g></svg><strong>Atendimento individual</strong><span>Foco total em você, sem pressa.</span></div>
+        <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></g></svg><strong>Produtos Keune</strong><span>Linha de alta performance, usada em todos os cuidados.</span></div>
+        <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></svg><strong>Hora marcada</strong><span>Seu tempo é respeitado do início ao fim.</span></div>
+        <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></svg><strong>15 anos de cadeira</strong><span>Experiência para entender o seu estilo e a sua rotina.</span></div>
       </div>
     </div>
   </section>
