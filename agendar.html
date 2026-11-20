@@ -327,11 +327,23 @@ header.top { display: flex; justify-content: space-between; align-items: center;
     { id: 'barbo', name: 'Barboterapia completa', min: 40, price: 100 },
     { id: 'barba-a', name: 'Alinhamento e aparar barba', min: 20, price: 55 },
     { id: 'bigode', name: 'Desenho e alinhamento de bigode', min: 15, price: 45 },
+    { id: 'tin-barba', name: 'Tintura e camuflagem de barba', min: 60, price: 100 },
     { id: 'sobr', name: 'Design de sobrancelha', min: 10, price: 35 },
-    { id: 'combo', name: 'Combo Yurt (corte e barba completa)', min: 75, price: 190 }
+    { id: 'dep-orelha', name: 'Depilação de orelhas', min: 10, price: 25 },
+    { id: 'dep-nariz', name: 'Depilação de nariz', min: 10, price: 35 },
+    { id: 'combo-nariz', name: 'Combo nariz e orelhas', min: 15, price: 55 },
+    { id: 'hidr', name: 'Hidratação capilar profunda', min: 60, price: 80 },
+    { id: 'tin-cabelo', name: 'Tintura e camuflagem capilar', min: 90, price: 100 },
+    { id: 'selagem', name: 'Selagem térmica e alinhamento', min: 120, price: 250 },
+    { id: 'combo', name: 'Combo Yurt (corte e barba completa)', min: 75, price: 190 },
+    { id: 'massagem', name: 'Massagem terapêutica Yurt', min: 60, price: 100 },
+    { id: 'visagismo', name: 'Consultoria de visagismo estrutural e imagem', min: 90, price: 500 }
   ];
 
   var picked = new Set();
+  // Serviços escolhidos no cardápio chegam por ?s=id1,id2
+  var preset = new URLSearchParams(location.search).get('s');
+  if (preset) preset.split(',').forEach(function (id) { if (find(id)) picked.add(id); });
   var day = null, slot = null, shownTotal = 0, slotsKey = '';
 
   function $(id) { return document.getElementById(id); }
