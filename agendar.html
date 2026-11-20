@@ -164,7 +164,18 @@ header.top { display: flex; justify-content: space-between; align-items: center;
 @keyframes turn { to { transform: rotate(360deg); } }
 .btn-go.shake { animation: shake .4s; }
 .summary .note { margin-top: 14px; font-size: 13px; color: #6B6553; line-height: 1.5; }
-.consent { grid-column: 1 / -1; font-size: 13px; line-height: 1.5; color: #A9A89C; margin-top: 4px; }
+.consent { grid-column: 1 / -1; display: flex; gap: 10px; align-items: flex-start; font-size: 13px; line-height: 1.5; color: #A9A89C; margin-top: 4px; cursor: pointer; }
+.consent input { margin-top: 3px; width: 16px; height: 16px; accent-color: #F3B25D; flex: 0 0 auto; }
+.link-btn { background: none; border: 0; padding: 0; color: #F3B25D; text-decoration: underline; cursor: pointer; font: inherit; }
+.term { position: fixed; inset: 0; z-index: 1000; background: rgba(10,11,8,.78); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.term[hidden] { display: none; }
+.term-box { background: #FFE9C8; color: #2A2A22; max-width: 560px; width: 100%; max-height: 88vh; display: flex; flex-direction: column; border-radius: 6px; padding: 24px; box-shadow: 0 30px 60px rgba(0,0,0,.4); }
+.term-box h2 { font-family: var(--display, Georgia, serif); font-weight: 500; font-size: 26px; margin: 0 0 12px; color: #2A2A22; }
+.term-body { overflow-y: auto; font-size: 14px; line-height: 1.6; padding-right: 6px; }
+.term-body p { margin: 0 0 10px; }
+.term-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 16px; flex-wrap: wrap; }
+.term-btn { padding: 12px 18px; border: 1px solid #7A5322; background: transparent; color: #2A2A22; cursor: pointer; font: 600 14px sans-serif; border-radius: 4px; }
+.term-ok { background: #2A2A22; color: #F3B25D; border-color: #2A2A22; }
 .warn { margin-top: 12px; font-size: 13px; color: #E0826A; min-height: 1.2em; }
 .sent { display: none; margin-top: 16px; padding: 14px 14px 14px 56px; background: rgba(42,42,34,.08); font-size: 14px; line-height: 1.5; position: relative; }
 .sent.show { display: block; animation: rise .6s var(--ease) forwards; opacity: 0; }
@@ -288,7 +299,10 @@ header.top { display: flex; justify-content: space-between; align-items: center;
           <label class="full">Observação (opcional)
             <textarea id="obs" rows="3" placeholder="Algo que o Roberto precise saber"></textarea>
           </label>
-          <p class="consent">Ao enviar, você concorda que a Barbearia Yurt use seu nome, WhatsApp e e-mail apenas para agendar, confirmar e avisar sobre seu horário. Seus dados não são compartilhados com terceiros e podem ser removidos a qualquer momento, pedindo pelo WhatsApp.</p>
+          <label class="consent">
+            <input id="aceite" type="checkbox">
+            <span>Li e concordo com o <button type="button" class="link-btn" id="verTermo">termo de consentimento</button> para o uso dos meus dados no agendamento.</span>
+          </label>
         </div>
       </section>
 
@@ -568,6 +582,7 @@ header.top { display: flex; justify-content: space-between; align-items: center;
 
   function missing() {
     var m = [];
+    if (!$('aceite').checked) m.push('aceite do termo');
     if (!picked.size) m.push('serviço');
     if (day === null) m.push('dia');
     if (slot === null) m.push('horário');
@@ -692,6 +707,31 @@ header.top { display: flex; justify-content: space-between; align-items: center;
     }, reduce ? 0 : 700);
   });
 
+  // Termo de consentimento: abre ao marcar a caixinha; só fica marcado se o cliente aceitar
+  (function () {
+    var box = $('aceite'), modal = $('termo');
+    var abertoPelaCaixa = false;
+    function abrir() { modal.hidden = false; $('termoAceitar').focus(); }
+    function fechar(aceitou) {
+      modal.hidden = true;
+      if (abertoPelaCaixa) box.checked = aceitou;
+      else if (aceitou) box.checked = true;
+      update();
+      if (abertoPelaCaixa) box.focus();
+      abertoPelaCaixa = false;
+    }
+    box.addEventListener('change', function () {
+      if (box.checked) { abertoPelaCaixa = true; abrir(); }
+      else update();
+    });
+    $('verTermo').addEventListener('click', function () { abertoPelaCaixa = false; abrir(); });
+    $('termoAceitar').addEventListener('click', function () { fechar(true); });
+    $('termoRecusar').addEventListener('click', function () { fechar(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.hidden) fechar(false);
+    });
+  })();
+
   // Botão com leve atração pelo cursor
   if (!reduce) {
     document.querySelectorAll('.btn-go').forEach(function (b) {
@@ -745,5 +785,25 @@ header.top { display: flex; justify-content: space-between; align-items: center;
   update();
 })();
 </script>
+  <div class="term" id="termo" role="dialog" aria-modal="true" aria-labelledby="termoTitulo" hidden>
+    <div class="term-box">
+      <h2 id="termoTitulo">Termo de consentimento</h2>
+      <div class="term-body">
+        <p><strong>1. Quem cuida dos seus dados.</strong> Barbearia Yurt, R. Luiz Gama, 933, Loja 2, Maringá/PR. WhatsApp: (44) 99904-9797.</p>
+        <p><strong>2. Quais dados.</strong> Nome, número de WhatsApp, e-mail (enquanto o campo existir), serviços escolhidos, dia, horário e a observação que você escrever.</p>
+        <p><strong>3. Para que.</strong> Agendar, confirmar e avisar sobre o seu horário, e registrar o atendimento.</p>
+        <p><strong>4. Base legal.</strong> Seu consentimento (art. 7º, I, da Lei 13.709/2018, LGPD) e a execução do serviço que você solicitou.</p>
+        <p><strong>5. Compartilhamento.</strong> Não vendemos nem compartilhamos seus dados com terceiros. Eles ficam na agenda e no e-mail da barbearia, nos serviços do Google que usamos para isso.</p>
+        <p><strong>6. Por quanto tempo.</strong> Enquanto houver relacionamento com a barbearia ou pelo prazo legal. Pedidos não confirmados são apagados em [prazo a definir na revisão jurídica].</p>
+        <p><strong>7. Seus direitos.</strong> Você pode pedir a confirmação do tratamento, o acesso, a correção, a exclusão dos seus dados e a revogação do consentimento, pelo WhatsApp (44) 99904-9797.</p>
+        <p><strong>8. Revogação.</strong> Você pode retirar o consentimento a qualquer momento. Isso pode impedir novos agendamentos pelo site.</p>
+        <p><strong>9. Alterações.</strong> Este termo pode ser atualizado. A versão vigente fica sempre nesta página. Versão 0.1, em revisão.</p>
+      </div>
+      <div class="term-actions">
+        <button type="button" class="term-btn" id="termoRecusar">Não aceito</button>
+        <button type="button" class="term-btn term-ok" id="termoAceitar">Li e aceito</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
