@@ -10,6 +10,15 @@ const DIAS_ANTECEDENCIA = 60;
 
 // Disponibilidade: o site pede ?data=AAAA-MM-DD e recebe os horários ocupados
 function doGet(e) {
+  try {
+    return disponibilidade(e);
+  } catch (err) {
+    avisarFalha('consulta de horários', err);
+    return json({ erro: 'falha interna' });
+  }
+}
+
+function disponibilidade(e) {
   const dia = (e && e.parameter && e.parameter.data) || '';
   if (!/^\d{4}-\d{2}-\d{2}$/.test(dia)) return json({ erro: 'data inválida' });
 
@@ -25,8 +34,34 @@ function doGet(e) {
   return json({ busy: busy });
 }
 
+// Avisa o Roberto quando algo dá errado (no máximo 1 aviso por tipo a cada 6 horas)
+function avisarFalha(onde, err) {
+  try {
+    const cache = CacheService.getScriptCache();
+    if (cache.get('falha_' + onde)) return;
+    cache.put('falha_' + onde, '1', 6 * 60 * 60);
+    MailApp.sendEmail(
+      EMAIL_ROBERTO,
+      'Alerta: falha no agendamento do site (' + onde + ')',
+      'Algo deu errado no script de agendamento da Yurt.\n\nOnde: ' + onde +
+      '\nErro: ' + (err && err.message ? err.message : err) +
+      '\nQuando: ' + Utilities.formatDate(new Date(), TZ, 'dd/MM/yyyy HH:mm') +
+      '\n\nPedidos novos podem não estar chegando. Avise quem cuida do site.'
+    );
+  } catch (e2) { /* sem como avisar */ }
+}
+
 // Novo pedido vindo do site
 function doPost(e) {
+  try {
+    return processarPedido(e);
+  } catch (err) {
+    avisarFalha('novo pedido', err);
+    return json({ ok: false, erro: 'falha interna' });
+  }
+}
+
+function processarPedido(e) {
   let d;
   try {
     d = JSON.parse(e.postData.contents);
@@ -96,6 +131,15 @@ function doPost(e) {
 
 // Verificador (acionador de tempo, a cada minuto): envia a confirmação ao cliente
 function checarConfirmacoes() {
+  try {
+    verificarConfirmacoes();
+  } catch (err) {
+    avisarFalha('confirmações', err);
+    throw err;
+  }
+}
+
+function verificarConfirmacoes() {
   const cal = CalendarApp.getDefaultCalendar();
   const agora = new Date();
   const ate = new Date(agora.getTime() + DIAS_ANTECEDENCIA * 24 * 60 * 60 * 1000);
