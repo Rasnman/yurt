@@ -7,6 +7,7 @@ const EMAIL_ROBERTO = 'joao.valerio.j2013@gmail.com';
 const TZ = 'America/Sao_Paulo';
 const ENDERECO = 'R. Luiz Gama, 933, Loja 2 — Maringá/PR';
 const DIAS_ANTECEDENCIA = 60;
+const DIAS_RETENCAO = 30; // agendamentos com mais de 30 dias são apagados da agenda
 
 // Disponibilidade: o site pede ?data=AAAA-MM-DD e recebe os horários ocupados
 function doGet(e) {
@@ -35,20 +36,33 @@ function disponibilidade(e) {
 }
 
 // Avisa o Roberto quando algo dá errado (no máximo 1 aviso por tipo a cada 6 horas)
-function avisarFalha(onde, err) {
+function avisarFalha(onde, err, ignorarLimite) {
   try {
     const cache = CacheService.getScriptCache();
-    if (cache.get('falha_' + onde)) return;
+    if (!ignorarLimite && cache.get('falha_' + onde)) return;
     cache.put('falha_' + onde, '1', 6 * 60 * 60);
-    MailApp.sendEmail(
-      EMAIL_ROBERTO,
-      'Alerta: falha no agendamento do site (' + onde + ')',
-      'Algo deu errado no script de agendamento da Yurt.\n\nOnde: ' + onde +
-      '\nErro: ' + (err && err.message ? err.message : err) +
-      '\nQuando: ' + Utilities.formatDate(new Date(), TZ, 'dd/MM/yyyy HH:mm') +
-      '\n\nPedidos novos podem não estar chegando. Avise quem cuida do site.'
-    );
+    const msg = String(err && err.message ? err.message : err);
+    const quando = Utilities.formatDate(new Date(), TZ, 'dd/MM/yyyy HH:mm');
+    const html =
+      '<div style="font-family:Arial,sans-serif;max-width:560px">' +
+      '<div style="background:#C62828;color:#fff;padding:20px;font-size:26px;font-weight:bold;text-align:center">' +
+      '🚨 ALERTA: O AGENDAMENTO DO SITE FALHOU 🚨</div>' +
+      '<div style="border:4px solid #C62828;padding:20px;font-size:16px;line-height:1.5">' +
+      '<p style="font-size:18px"><b>Pedidos novos podem NÃO estar chegando.</b> Avise quem cuida do site agora.</p>' +
+      '<p><b>Onde:</b> ' + onde + '<br><b>Erro:</b> ' + msg + '<br><b>Quando:</b> ' + quando + '</p></div></div>';
+    MailApp.sendEmail({
+      to: EMAIL_ROBERTO,
+      subject: '🚨🚨 URGENTE - ALERTA YURT: agendamento do site com ERRO (' + onde + ')',
+      body: 'ALERTA URGENTE: o agendamento do site falhou. Onde: ' + onde + '. Erro: ' + msg + '. Quando: ' + quando + '. Pedidos novos podem não estar chegando.',
+      htmlBody: html,
+      name: '🚨 ALERTA YURT'
+    });
   } catch (e2) { /* sem como avisar */ }
+}
+
+// Teste manual: rode esta função no editor para ver como o alerta chega
+function testarAlerta() {
+  avisarFalha('TESTE (pode ignorar)', new Error('Este é só um teste do alerta.'), true);
 }
 
 // Novo pedido vindo do site
@@ -167,6 +181,30 @@ function verificarConfirmacoes() {
     );
     ev.setTag('notificado', '1');
   });
+}
+
+// Limpeza (acionador diário): apaga da agenda os agendamentos do site com mais de DIAS_RETENCAO dias.
+// Só mexe em eventos criados pelo site (título [PENDENTE], [CONFIRMADO] ou [CANCELADO]).
+// Rode limparAntigos(true) no editor para só contar, sem apagar.
+function limparAntigos(simular) {
+  try {
+    const cal = CalendarApp.getDefaultCalendar();
+    const corte = new Date(new Date().getTime() - DIAS_RETENCAO * 24 * 60 * 60 * 1000);
+    const desde = new Date(corte.getTime() - 365 * 24 * 60 * 60 * 1000);
+    const antigos = cal.getEvents(desde, corte).filter(function (ev) {
+      return /^\[(PENDENTE|CONFIRMADO|CANCELADO)\]/.test(ev.getTitle()) && ev.getEndTime() < corte;
+    });
+    if (simular === true) {
+      Logger.log('Simulação: ' + antigos.length + ' agendamentos seriam apagados.');
+      return antigos.length;
+    }
+    antigos.forEach(function (ev) { ev.deleteEvent(); });
+    Logger.log('Apagados ' + antigos.length + ' agendamentos com mais de ' + DIAS_RETENCAO + ' dias.');
+    return antigos.length;
+  } catch (err) {
+    avisarFalha('limpeza de agendamentos antigos', err);
+    throw err;
+  }
 }
 
 function json(obj) {
