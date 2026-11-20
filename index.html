@@ -203,6 +203,9 @@ section.deep { background: linear-gradient(180deg, var(--ink) 0, var(--ink-deep)
 .hours-list li:last-child { border-bottom: 1px solid var(--rule); }
 .hours-list li span:last-child { font-variant-numeric: tabular-nums; }
 .hours-list li span:first-child { color: var(--muted); }
+.hours-list .hi { display: flex; align-items: center; gap: 12px; }
+.hours-list .hi svg { width: 20px; height: 20px; flex: 0 0 auto; color: var(--gold); transition: transform .6s var(--ease); }
+.hours-list li:hover .hi svg { transform: rotate(25deg) scale(1.15); }
 .hours-note { margin-top: 26px; color: var(--muted); font-size: 16px; }
 
 .book-line { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
@@ -633,8 +636,8 @@ footer .seal { width: 54px; height: 54px; }
         <svg class="clipper" viewBox="0 0 170 120" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><g class="buzz"><rect x="30" y="34" width="96" height="32" rx="14"/><rect x="126" y="38" width="22" height="24" rx="4"/><path d="M134 62 V74 M142 62 V74"/><path d="M30 50 C12 50 10 84 24 98"/></g></svg>
       <div>
         <ul class="hours-list">
-          <li><span>Segunda a sexta</span><span>08h às 18h</span></li>
-          <li><span>Sábado e domingo</span><span>Fechado</span></li>
+          <li><span class="hi"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></g></svg>Segunda a sexta</span><span>08h às 18h</span></li>
+          <li><span class="hi"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></g></svg>Sábado e domingo</span><span>Fechado</span></li>
         </ul>
         <p class="status" id="status" aria-live="polite"><i aria-hidden="true"></i><span>Verificando horário...</span></p>
         <p class="hours-note">Nos fins de semana e feriados, deixe sua mensagem no WhatsApp. Respondemos no próximo dia útil.</p>
