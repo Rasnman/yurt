@@ -276,6 +276,9 @@ header.top { display: flex; justify-content: space-between; align-items: center;
           <label>WhatsApp com DDD
             <input id="fone" type="tel" inputmode="tel" autocomplete="tel" placeholder="(44) 99999-9999">
           </label>
+          <label class="full">E-mail (temporário, para testes)
+            <input id="email" type="email" autocomplete="email" placeholder="seu@email.com">
+          </label>
           <label class="full">Observação (opcional)
             <textarea id="obs" rows="3" placeholder="Algo que o Roberto precise saber"></textarea>
           </label>
@@ -616,6 +619,7 @@ header.top { display: flex; justify-content: space-between; align-items: center;
     var payload = {
       nome: $('nome').value.trim(),
       whatsapp: $('fone').value.trim(),
+      email: $('email').value.trim(),
       servicos: picked.size ? Array.from(picked).map(function (id) { return find(id).name; }).join(' + ') : '',
       duracao_min: totalDur(),
       valor_total: brl(totalPrice()),
