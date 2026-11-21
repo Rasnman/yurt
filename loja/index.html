@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loja Yurt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D09D59;
+    --gold-hi: #F3B25D;
+    --ink: #14160F;
+    --ink-2: #1F2219;
+    --cream: #EEEDE8;
+    --muted: #B9B6A9;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--ink); color: var(--cream); font-family: "Inter", system-ui, sans-serif; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; cursor: pointer; border: 0; }
+  h1, h2, .serif { font-family: "Playfair Display", Georgia, serif; font-weight: 600; }
+
+  /* ---------- NAV ---------- */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding: 18px 4vw;
+    background: linear-gradient(to bottom, rgba(20,22,15,.95), rgba(20,22,15,0));
+    transition: background .3s;
+  }
+  .nav.solid { background: rgba(20,22,15,.97); box-shadow: 0 1px 0 rgba(208,157,89,.2); }
+  .logo { font-family: "Playfair Display", serif; font-size: 22px; letter-spacing: .18em; color: var(--gold); }
+  .cats { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  .cats button {
+    background: transparent; color: var(--cream); padding: 7px 14px; border-radius: 999px;
+    font-size: 14px; white-space: nowrap; opacity: .8; transition: .2s;
+  }
+  .cats button:hover, .cats button.on { opacity: 1; background: rgba(238,237,232,.14); }
+  .back { font-size: 14px; color: var(--gold); white-space: nowrap; }
+  .back:hover { color: var(--gold-hi); }
+
+  /* ---------- HERO (featured) ---------- */
+  .hero {
+    position: relative; min-height: 92vh;
+    display: flex; align-items: center; justify-content: space-between; gap: 40px;
+    overflow: hidden; padding: 120px 4vw 80px;
+  }
+  .hero-bg {
+    position: absolute; inset: -40px;
+    background-size: cover; background-position: center;
+    filter: blur(42px) brightness(.4) saturate(.9);
+    transform: scale(1.15);
+    transition: opacity .6s ease;
+  }
+  .hero::after {
+    content: ""; position: absolute; inset: 0;
+    background:
+      linear-gradient(90deg, var(--ink) 6%, rgba(20,22,15,.55) 50%, rgba(20,22,15,.25)),
+      linear-gradient(to top, var(--ink) 0%, rgba(20,22,15,0) 35%);
+  }
+  .hero-info {
+    position: relative; z-index: 2; max-width: 560px; flex: 1 1 420px;
+    transition: opacity .35s, transform .35s;
+  }
+  .hero-info.swap { opacity: 0; transform: translateY(10px); }
+  .eyebrow { font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 10px; }
+  .eyebrow::before { content: ""; width: 22px; height: 2px; background: var(--gold); }
+  .hero h1 { font-size: clamp(38px, 5vw, 66px); line-height: 1.02; margin: 14px 0 10px; }
+  .hero .tag { font-size: 15px; color: var(--gold-hi); font-style: italic; font-family: "Playfair Display", serif; }
+  .hero .desc { font-size: 17px; line-height: 1.6; color: #E4E1D6; margin: 18px 0 22px; max-width: 520px; }
+  .facts { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 26px; }
+  .facts span { font-size: 12px; padding: 5px 11px; border: 1px solid rgba(208,157,89,.5); border-radius: 4px; color: var(--cream); }
+  .price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 26px; flex-wrap: wrap; }
+  .price { font-family: "Playfair Display", serif; font-size: 40px; color: var(--gold-hi); }
+  .price s { font-family: "Inter", sans-serif; font-size: 16px; color: var(--muted); margin-left: 6px; }
+  .price-row small { font-size: 13px; color: var(--muted); }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 14px 26px; border-radius: 4px; font-weight: 600; font-size: 15px; transition: transform .2s, background .2s, color .2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--gold); color: var(--ink); }
+  .btn-primary:hover { background: var(--gold-hi); }
+  .btn-ghost { background: rgba(238,237,232,.18); color: var(--cream); }
+  .btn-ghost:hover { background: rgba(238,237,232,.3); }
+  .hero-use { margin-top: 18px; font-size: 14px; line-height: 1.6; color: var(--muted); max-width: 500px; }
+
+  .hero-pic {
+    position: relative; z-index: 2; flex: 0 1 420px; aspect-ratio: 1/1; max-width: 420px; width: 100%;
+    background: var(--cream); border-radius: 8px; overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,.55), 0 0 0 1px rgba(208,157,89,.35);
+    transition: opacity .35s, transform .35s;
+  }
+  .hero-pic.swap { opacity: 0; transform: scale(.98); }
+  .hero-pic img { width: 100%; height: 100%; object-fit: contain; padding: 24px; display: block; }
+  .hero-pic .placeholder {
+    width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
+    font-family: "Playfair Display", serif; font-size: 120px; color: var(--gold);
+    background: var(--ink-2);
+  }
+
+  /* ---------- ROWS ---------- */
+  .rows { position: relative; z-index: 3; padding-bottom: 60px; }
+  .row { margin-bottom: 38px; }
+  .row h2 { font-size: 22px; padding: 0 4vw 14px; color: var(--cream); }
+  .track {
+    display: flex; gap: 14px; overflow-x: auto; padding: 14px 4vw 22px;
+    scroll-snap-type: x mandatory; scrollbar-width: none;
+  }
+  .track::-webkit-scrollbar { display: none; }
+  .card {
+    position: relative; flex: 0 0 auto; width: 230px; aspect-ratio: 4/5;
+    border-radius: 6px; overflow: hidden; scroll-snap-align: start;
+    background: var(--cream); cursor: pointer;
+    transition: transform .3s ease, box-shadow .3s ease, outline-color .3s;
+    outline: 2px solid transparent; outline-offset: 2px;
+  }
+  .card:hover, .card:focus-visible { transform: scale(1.06); z-index: 4; box-shadow: 0 14px 30px rgba(0,0,0,.5); outline-color: var(--gold); }
+  .card.on { outline-color: var(--gold); }
+  .card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; padding: 16px 16px 70px; }
+  .card .shade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,22,15,.95) 0%, rgba(20,22,15,0) 45%); }
+  .card .cap { position: absolute; left: 14px; right: 14px; bottom: 12px; color: var(--cream); }
+  .card .cap b { display: block; font-size: 14px; font-weight: 600; line-height: 1.25; }
+  .card .cap span { font-size: 13px; color: var(--gold-hi); }
+  .card .new {
+    position: absolute; top: 10px; left: 10px; font-size: 10px; letter-spacing: .15em;
+    background: var(--gold); color: var(--ink); padding: 3px 7px; border-radius: 3px; font-weight: 600;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer { border-top: 1px solid rgba(208,157,89,.2); padding: 26px 4vw 40px; font-size: 13px; color: var(--muted); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  footer em { color: var(--gold); font-family: "Playfair Display", serif; }
+
+  @media (max-width: 760px) {
+    .nav { flex-wrap: wrap; }
+    .cats { order: 3; width: 100%; }
+    .back { display: none; }
+    .hero { min-height: auto; padding-top: 150px; padding-bottom: 50px; flex-direction: column; align-items: flex-start; }
+    .hero::after { background: linear-gradient(to top, var(--ink) 25%, rgba(20,22,15,.5)); }
+    .hero-pic { flex: none; max-width: 300px; }
+    .card { width: 180px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="logo">YURT</div>
+  <div class="cats" id="cats"></div>
+  <a class="back" href="../">← Voltar ao site</a>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-info" id="heroInfo"></div>
+  <div class="hero-pic" id="heroPic"></div>
+</section>
+
+<div class="rows" id="rows"></div>
+
+<footer>
+  <div class="logo" style="font-size:16px">YURT</div>
+  <em>A Yurt não se anuncia. Ela se revela.</em>
+  <div>© 2026 YURT – Barber &amp; Ritual House</div>
+</footer>
+
+<script>
+  // Contato para a compra: troque pelo número real da Yurt (DDI + DDD + número, só dígitos)
+  const WA_NUMBER = "5544999049797";
+
+  // Produtos reais do catálogo do WhatsApp Business da Yurt.
+  // "hero" é a foto grande do destaque; "img" é a foto do cartão.
+  const PRODUCTS = [
+    {
+      id: "1922-shampoo", name: "1922 Fortifying Shampoo 250ml", cat: "Cuidados capilares", row: "Destaques",
+      price: 133.64, old: 157.22, size: "250 ml", tag: "Keune · Distilled for Men",
+      img: "img/1922-frente.jpg", hero: "img/1922-hero.jpg", isNew: false,
+      desc: "Shampoo fortificante para homens com pouca densidade e queda. Ajuda a evitar a queda, retarda o processo de calvície e fortalece os fios.",
+      facts: ["Anti-queda", "Pouca densidade", "Uso diário"],
+      use: "Aplique no cabelo úmido, massageie o couro cabeludo, enxágue e repita se necessário."
+    },
+    {
+      id: "silhouette", name: "Silhouette Hairspray Super Hold 500ml", cat: "Finalização", row: "Destaques",
+      price: 159.90, old: 199.90, size: "500 ml", tag: "Schwarzkopf Professional",
+      img: "img/silhouette.jpg", hero: "img/silhouette.jpg", isNew: true,
+      desc: "Spray de fixação ultra forte que mantém o penteado o dia todo, com efeito invisível e sem deixar o cabelo duro ou pegajoso.",
+      facts: ["Fixação ultra forte", "Efeito invisível", "Dura o dia todo"],
+      use: "Pulverize a cerca de 30 cm do cabelo seco. Para mais fixação, aplique em camadas finas, deixando secar entre elas."
+    },
+    {
+      id: "escova", name: "Escova Round Bristle 33mm", cat: "Finalização", row: "Destaques",
+      price: 249.90, old: 299.90, size: "33 mm", tag: "Keune · Ferramenta profissional",
+      img: "img/escova.jpg", hero: "img/escova.jpg", isNew: false,
+      desc: "Escova de cerdas redondas para modelar, dar volume ou deixar o cabelo liso e macio. O corpo cerâmico distribui o calor de forma uniforme e reduz o frizz.",
+      facts: ["Cerdas redondas", "Corpo cerâmico", "Reduz frizz"],
+      use: "Seque o cabelo puxando a escova em direção às pontas, girando para criar volume na raiz."
+    },
+    {
+      id: "vital-shampoo", name: "Care Vital Nutrition Shampoo 300ml", cat: "Cuidados capilares", row: "Cuidados capilares",
+      price: 155.94, old: 183.46, size: "300 ml", tag: "Keune · Care Vital Nutrition",
+      img: "img/vital-shampoo.jpg", hero: "img/vital-shampoo.jpg", isNew: false,
+      desc: "Limpa e hidrata ao mesmo tempo. Indicado para cabelos secos, porosos, danificados ou que passaram por mechas e descoloração.",
+      facts: ["Hidratação intensa", "Para cabelo tratado", "300 ml"],
+      use: "Aplique no cabelo molhado, massageie até formar espuma e enxágue. Repita se necessário."
+    },
+    {
+      id: "vital-condicionador", name: "Care Vital Nutrition Conditioner 250ml", cat: "Cuidados capilares", row: "Cuidados capilares",
+      price: 167.10, old: 196.59, size: "250 ml", tag: "Keune · Care Vital Nutrition",
+      img: "img/vital-condicionador.jpg", hero: "img/vital-condicionador.jpg", isNew: false,
+      desc: "Revitaliza fios secos e danificados, devolvendo maciez e brilho sem deixar o cabelo pesado. Tecnologia Nutri Injection.",
+      facts: ["Maciez", "Brilho", "Não pesa"],
+      use: "Distribua por todo o cabelo depois do shampoo, penteie com pente de dentes largos, deixe agir 3 minutos e enxágue."
+    },
+    {
+      id: "vital-mascara", name: "Care Vital Nutrition Mask 200ml", cat: "Cuidados capilares", row: "Cuidados capilares",
+      price: 288.45, old: 345.90, size: "200 ml", tag: "Keune · Máscara reparadora",
+      img: "img/vital-mascara.jpg", hero: "img/vital-mascara.jpg", isNew: true,
+      desc: "Máscara altamente nutritiva para cabelos frágeis, muito ressecados ou com descoloração. Contém pró-vitamina B5, que hidrata e dá flexibilidade aos fios.",
+      facts: ["Reparação", "Pró-vitamina B5", "Cabelo grosso"],
+      use: "Depois de lavar e retirar o excesso de água, aplique do comprimento às pontas, deixe agir 3 minutos e enxágue."
+    },
+    {
+      id: "gloss-guard", name: "Gloss Guard 100ml", cat: "Finalização", row: "Finalização",
+      price: 198.90, old: 249.08, size: "100 ml", tag: "Keune · Style",
+      img: "img/gloss-guard.jpg", hero: "img/gloss-guard-mao.jpg", isNew: true,
+      desc: "Polidor multifuncional que dá brilho prolongado, fixação flexível e controle do frizz. Deixa o cabelo com efeito molhado, sem pesar.",
+      facts: ["Brilho prolongado", "Fixação flexível", "Controla frizz"],
+      use: "Aplique uma pequena quantidade nas pontas dos dedos ou nas palmas e alinhe os fios delicadamente."
+    },
+    {
+      id: "top-form", name: "Top Form Cream Restyler", cat: "Finalização", row: "Finalização",
+      price: null, old: null, size: "Consulte", tag: "Keune · Style",
+      img: "img/top-form.jpg", hero: "img/top-form-hero.jpg", isNew: false,
+      desc: "Creme remodelador que une brilho e fixação média. Serve para reajustar o penteado sem deixar o cabelo duro.",
+      facts: ["Brilho médio", "Fixação média", "Creme remodelador"],
+      use: "Aplique no cabelo seco e modele com as mãos ou com a escova."
+    },
+    {
+      id: "barba-balm", name: "1922 Beard Balm 75ml", cat: "Barba e fragrância", row: "Barba e fragrância",
+      price: null, old: null, size: "75 ml", tag: "Keune · 1922 by J.M. Keune",
+      img: "img/barba-balm.jpg", hero: "img/barba-balm-hero.jpg", isNew: false,
+      desc: "Bálsamo modelador que hidrata e alinha a barba e o bigode, com efeito natural. Indicado para barbas médias.",
+      facts: ["Hidratação", "Efeito natural", "Barbas médias"],
+      use: "Aplique uma pequena quantidade na barba seca e modele no sentido desejado."
+    },
+    {
+      id: "1922-edt", name: "1922 Eau de Toilette 100ml", cat: "Barba e fragrância", row: "Barba e fragrância",
+      price: null, old: null, size: "100 ml", tag: "Keune · Distilled for Men",
+      img: "img/1922-edt.jpg", hero: "img/1922-edt-hero.jpg", isNew: true,
+      desc: "Água de colônia masculina da linha 1922 by J.M. Keune, em frasco de vidro com tampa prateada.",
+      facts: ["Eau de Toilette", "Linha Distilled for Men", "100 ml"],
+      use: "Borrife a fragrância na pele ou nas roupas, a uma distância de cerca de 20 cm."
+    },
+    {
+      id: "vital-kit", name: "Kit Care Vital Nutrition 80ml", cat: "Cuidados capilares", row: "Cuidados capilares",
+      price: null, old: null, size: "2 x 80 ml", tag: "Keune · Care Vital Nutrition",
+      img: "img/vital-kit.jpg", hero: "img/vital-kit-hero.jpg", isNew: false,
+      desc: "Kit de viagem com shampoo e condicionador Vital Nutrition para reconstruir cabelos grossos, secos e danificados.",
+      facts: ["Shampoo + condicionador", "Formato viagem", "Cabelos grossos"],
+      use: "Use o shampoo no cabelo molhado, aplique o condicionador do comprimento às pontas e enxágue."
+    }
+  ];
+
+  const ROWS = ["Destaques", "Cuidados capilares", "Finalização", "Barba e fragrância"];
+  const fmt = v => v == null ? "Consulte" : "R$ " + v.toFixed(2).replace(".", ",");
+  const waLink = p => `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent("Olá! Quero o produto: " + p.name)}`;
+
+  // ---------- Menu de categorias ----------
+  const catsEl = document.getElementById("cats");
+  ROWS.forEach((c, i) => {
+    const b = document.createElement("button");
+    b.textContent = c;
+    b.addEventListener("click", () => {
+      const row = [...document.querySelectorAll(".row")].find(r => r.dataset.name === c);
+      if (row) row.scrollIntoView({ behavior: "smooth", block: "start" });
+      catsEl.querySelectorAll("button").forEach(x => x.classList.remove("on"));
+      b.classList.add("on");
+    });
+    if (i === 0) b.classList.add("on");
+    catsEl.appendChild(b);
+  });
+
+  // ---------- Destaque (hero) ----------
+  function renderHero(p) {
+    const info = document.getElementById("heroInfo");
+    const pic = document.getElementById("heroPic");
+    const bg = document.getElementById("heroBg");
+    info.classList.add("swap");
+    pic.classList.add("swap");
+    setTimeout(() => {
+      info.innerHTML = `
+        <div class="eyebrow">Em destaque · ${p.cat}</div>
+        <h1>${p.name}</h1>
+        <div class="tag">${p.tag}</div>
+        <p class="desc">${p.desc}</p>
+        <div class="facts">${p.facts.map(f => `<span>${f}</span>`).join("")}</div>
+        <div class="price-row">
+          <div class="price">${fmt(p.price)}${p.old ? `<s>${fmt(p.old)}</s>` : ""}</div>
+          <small>${p.size} · à vista</small>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="${waLink(p)}" target="_blank" rel="noopener">Comprar pelo WhatsApp</a>
+          <a class="btn btn-ghost" href="#como-usar">Como usar</a>
+        </div>
+        <p class="hero-use" id="como-usar">${p.use}</p>`;
+      pic.innerHTML = `<img src="${p.hero}" alt="${p.name}">`;
+      info.classList.remove("swap");
+      pic.classList.remove("swap");
+    }, 280);
+    bg.style.backgroundImage = `url('${p.hero}')`;
+    document.querySelectorAll(".card").forEach(c => c.classList.toggle("on", c.dataset.id === p.id));
+  }
+
+  // ---------- Linhas de produtos ----------
+  const rowsEl = document.getElementById("rows");
+  ROWS.forEach(rowName => {
+    const items = PRODUCTS.filter(p => p.row === rowName);
+    if (!items.length) return;
+    const wrap = document.createElement("section");
+    wrap.className = "row";
+    wrap.dataset.name = rowName;
+    wrap.innerHTML = `<h2>${rowName}</h2>`;
+    const track = document.createElement("div");
+    track.className = "track";
+    items.forEach(p => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.tabIndex = 0;
+      card.dataset.id = p.id;
+      card.innerHTML = `
+        <img src="${p.img}" alt="${p.name}">
+        <div class="shade"></div>
+        ${p.isNew ? `<span class="new">NOVO</span>` : ""}
+        <div class="cap"><b>${p.name}</b><span>${fmt(p.price)}</span></div>`;
+      const select = () => { renderHero(p); window.scrollTo({ top: 0, behavior: "smooth" }); };
+      card.addEventListener("click", select);
+      card.addEventListener("keydown", e => { if (e.key === "Enter") select(); });
+      track.appendChild(card);
+    });
+    wrap.appendChild(track);
+    rowsEl.appendChild(wrap);
+  });
+
+  // ---------- Nav fica sólida ao rolar ----------
+  const nav = document.getElementById("nav");
+  window.addEventListener("scroll", () => nav.classList.toggle("solid", window.scrollY > 40), { passive: true });
+
+  renderHero(PRODUCTS[0]);
+</script>
+</body>
+</html>
