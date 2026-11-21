@@ -10,7 +10,126 @@
 .skip:focus { left: 12px; }
 :focus-visible { outline: 2px solid #F3B25D; outline-offset: 3px; }
 .menu-group li:focus-visible, .rail:focus-visible { outline: 2px solid #F3B25D; outline-offset: 4px; }
-.logo-mark { width: 40px; height: 40px; border-radius: 50%; vertical-align: middle; margin-right: 10px; }</style>
+.logo-mark { width: 40px; height: 40px; border-radius: 50%; vertical-align: middle; margin-right: 10px; }.strip { display: block; text-align: center; padding: 18px 24px; background: var(--gold); color: var(--ink-deep); font-family: 'Hanken Grotesk', sans-serif; font-size: 15px; letter-spacing: .02em; text-decoration: none; }
+.strip:hover { background: var(--gold-hi); }
+.strip:focus-visible { outline: 2px solid var(--cream); outline-offset: -6px; }
+.fnav { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 18px; }
+.fnav a { color: var(--cream); text-decoration: none; }
+.fnav a:hover { color: var(--gold-hi); }
+.fnav a:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+
+/* Hero em três painéis, com faixa dourada no centro */
+.hero { background: var(--ink); color: var(--cream); padding: 24px 0 0; }
+.hero .hero3 { display: grid; grid-template-columns: 1fr minmax(300px, 400px) 1fr; height: auto; min-height: clamp(520px, 84vh, 920px); margin-top: 26px; width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+.hp { margin: 0; overflow: hidden; }
+.hp img { width: 100%; height: 100%; object-fit: cover; display: block; }
+@media (min-width: 821px) { .hero .hp-l img, .hero .hp-r img { height: 120%; } }
+.hp-c { display: flex; flex-direction: column; background: var(--ink-deep); color: var(--cream); min-width: 0; }
+.hp-top { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: clamp(32px, 4vw, 56px) clamp(24px, 3vw, 40px) clamp(44px, 5vw, 64px); }
+.hp-tag { display: inline-block; border: 2px solid var(--gold); color: var(--gold-hi); font: 500 15px/1 var(--text); padding: 12px 18px; margin-bottom: 28px; }
+.hp-c .mark { font-family: var(--display); font-weight: 500; font-size: clamp(64px, 7vw, 104px); line-height: .85; margin: 0 0 26px; color: var(--cream); letter-spacing: -0.02em; }
+.hp-c .tagline { font-family: var(--display); font-size: clamp(22px, 2.2vw, 30px); line-height: 1.25; color: var(--cream); margin: 0 auto; max-width: 18ch; }
+.hp-bottom { position: relative; flex: 0 0 auto; background: #FFFFFF; color: #26291F; text-align: center; display: flex; flex-direction: column; align-items: center; padding: clamp(32px, 3.5vw, 44px) clamp(24px, 3vw, 40px) clamp(30px, 3vw, 40px); }
+.hp-bottom::before { content: ""; position: absolute; left: 0; right: 0; top: -19px; height: 20px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 20' preserveAspectRatio='none'><path d='M0 20V10C10 2 20 2 30 10S50 18 60 10S80 2 90 10S110 18 120 10V20Z' fill='%23FFFFFF'/></svg>") 0 0 / 100% 100% no-repeat; }
+.hp-bottom .intro { font-size: 16px; line-height: 1.5; color: #5F6152; max-width: 34ch; margin: 0; }
+.hp-bottom .actions { margin-top: 22px; display: flex; gap: 14px; flex-wrap: wrap; justify-content: center; }
+.hp-bottom .btn-solid { background: var(--gold); color: var(--ink-deep); border-color: var(--gold); }
+.hp-bottom .btn-solid:hover { background: var(--ink-deep); color: var(--gold); border-color: var(--ink-deep); }
+.hp-bottom .btn-line { color: #26291F; border-color: #26291F; }
+.hp-bottom .btn-line:hover { color: #7A5322; border-color: #7A5322; }
+.cards-sec { padding: 0; background: var(--ink); }
+.card-row { display: grid; grid-template-columns: repeat(4, 1fr); }
+.card4 { display: flex; flex-direction: column; text-decoration: none; color: var(--cream); background: var(--ink-deep); border-radius: 22px; overflow: hidden; transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s; }
+.card4 img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; transition: transform .8s cubic-bezier(.2,.7,.2,1), opacity .3s; }
+.card4:hover img { opacity: .9; transform: scale(1.07); }
+.card4:hover { transform: translateY(-8px); box-shadow: 0 26px 50px -22px rgba(0,0,0,.7); }
+.card4-body { padding: 22px 22px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.card4-body h3 { font-family: var(--display); font-weight: 500; font-size: clamp(22px, 2vw, 28px); color: var(--gold-hi); margin: 0; line-height: 1.1; }
+.card4-body p { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.5; }
+.card4-link { margin-top: auto; color: var(--gold); font-size: 15px; }
+.card4:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: -4px; }
+/* Interação e cantos arredondados */
+.hp img { transition: transform 1.2s cubic-bezier(.2,.7,.2,1); }
+.hp:hover img { transform: scale(1.04); }
+.hp-tag { border-radius: 999px; }
+.btn { border-radius: 14px; }
+.btn:hover { transform: translateY(-3px); }
+.btn:active { transform: translateY(0) scale(.98); }
+.menu, .menu-m { border-radius: 22px; }
+.rail-card { border-radius: 18px; }
+/* Movimento nos cartões de atalho */
+.card4 { position: relative; }
+.card4::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: linear-gradient(105deg, transparent 35%, rgba(243,178,93,.38) 50%, transparent 65%); transform: translateX(-120%); transition: transform .9s cubic-bezier(.2,.7,.2,1); }
+.card4:hover::after { transform: translateX(120%); }
+.card4:hover img { filter: saturate(1.15); }
+.card4-body h3, .card4-body p { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.card4:hover .card4-body h3 { transform: translateX(6px); }
+.card4:hover .card4-body p { transform: translateX(4px); }
+.card4-link { display: inline-block; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .45s cubic-bezier(.2,.7,.2,1), transform .5s cubic-bezier(.2,.7,.2,1); }
+.card4:hover .card4-link { background-size: 100% 1px; transform: translateX(8px); }
+@keyframes cardIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+.card-row > a:nth-child(1) { --i: 0; }
+.card-row > a:nth-child(2) { --i: 1; }
+.card-row > a:nth-child(3) { --i: 2; }
+.card-row > a:nth-child(4) { --i: 3; }
+.card4 { animation: cardIn .9s cubic-bezier(.2,.7,.2,1) backwards; animation-delay: calc(var(--i, 0) * 130ms); }
+/* Correções do topo */
+.hp-bottom .btn-line { padding: 16px 24px; border: 1px solid #26291F; border-radius: 14px; }
+/* Luz que acompanha o cursor sobre o site */
+.hero { position: relative; overflow: hidden; }
+.hero .spot { position: absolute; left: 0; top: 0; width: 520px; height: 520px; margin: -260px 0 0 -260px; border-radius: 50%; background: radial-gradient(circle, rgba(208,157,89,.28), rgba(208,157,89,0) 65%); pointer-events: none; z-index: 2; opacity: 0; transition: opacity .5s ease; }
+/* Menu acompanha a seção visível */
+.hero nav a { position: relative; padding: 4px 0; transition: color .25s; }
+.hero nav a.is-active { color: #7A5322; box-shadow: inset 0 -2px 0 #D09D59; }
+/* História: resumo e texto completo */
+.hist-resumo { padding: clamp(60px, 8vw, 96px) 0; }
+.hist-resumo-box { max-width: 760px; }
+.hist-resumo p { font-size: 19px; line-height: 1.6; color: #5F6152; margin: 18px 0 28px; }
+.hist-full { max-width: 760px; }
+.hist-full p { font-family: var(--display); font-size: clamp(22px, 2.4vw, 30px); line-height: 1.4; color: #26291F; margin-top: 22px; font-variation-settings: "opsz" 28; }
+@media (max-width: 1000px) { .card-row { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 820px) {
+  .hero .hero3 { grid-template-columns: 1fr; height: auto; }
+  .hp-c { order: -1; }
+  .hp img { height: 240px; }
+}
+@media (max-width: 560px) { .card-row { grid-template-columns: 1fr; } }
+
+.hp-slides { position: relative; min-height: 4.6em; }
+.hp-slides .slide { position: absolute; inset: 0; margin: 0; opacity: 0; transform: translateY(10px); transition: opacity .6s, transform .6s; pointer-events: none; }
+.hp-slides .slide.is-on { opacity: 1; transform: none; position: relative; pointer-events: auto; }
+.hp-slides em { font-style: normal; font-weight: 600; color: var(--gold-hi); }
+.hp-dots { display: flex; gap: 10px; margin: 0 0 18px; }
+.hp-dots button { width: 12px; height: 12px; border-radius: 50%; border: 2px solid var(--ink-deep); background: transparent; padding: 0; cursor: pointer; }
+.hp-dots button.is-on { background: var(--ink-deep); }
+.hp-dots button:focus-visible { outline: 2px solid var(--cream); outline-offset: 2px; }
+/* Sobre: painel amarelo e painel escuro sobrepostos */
+.about-blocks { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); align-items: stretch; }
+.about-blocks .ab-y { background: var(--gold); color: var(--ink-deep); padding: clamp(32px, 4vw, 56px); display: flex; flex-direction: column; justify-content: space-between; gap: 28px; }
+.about-blocks .ab-y h2 { margin: 0; font-family: var(--display); font-weight: 500; font-size: clamp(56px, 7vw, 104px); line-height: .88; color: var(--ink-deep); }
+.about-blocks .ab-w { background: var(--ink-deep); padding: clamp(32px, 4vw, 56px); margin-left: -4%; position: relative; }
+.about-blocks .ab-w .statement { margin-top: 0; }
+.about-blocks .ab-w .about-list { margin-top: 28px; }
+@media (max-width: 820px) { .about-blocks { grid-template-columns: 1fr; } .about-blocks .ab-w { margin-left: 0; } }
+/* Clube: painel de preço em amarelo */
+.frame.club .price-col { background: var(--gold); color: var(--ink-deep); padding: clamp(28px, 3vw, 44px); }
+.frame.club .price-col .amount, .frame.club .price-col .per { color: var(--ink-deep); }
+.frame.club .price-col .btn-solid { background: var(--ink-deep); color: var(--gold); }
+.frame.club .price-col .btn-solid:hover { background: var(--cream); color: var(--ink-deep); }
+/* Menu do celular */
+.nav-toggle { display: none; background: none; border: 1px solid var(--gold); color: var(--cream); font: inherit; padding: 8px 14px; cursor: pointer; }
+.nav-toggle:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 2px; }
+@media (max-width: 820px) {
+  .nav-toggle { display: inline-block; }
+  .hero nav { display: none; width: 100%; flex-direction: column; align-items: flex-start; gap: 16px; padding: 12px 0 8px; }
+  .hero nav.open { display: flex; }
+}
+/* Voltar ao topo */
+.totop { display: inline-block; margin-top: 16px; color: var(--gold); text-decoration: none; font-size: 14px; }
+.totop:hover { color: var(--gold-hi); }
+.totop:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 3px; }
+
+</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -52,7 +171,7 @@ p { max-width: 60ch; }
   border: 1px solid var(--gold); transition: background .25s, color .25s, border-color .25s, transform .35s cubic-bezier(.2,.7,.2,1);
 }
 .btn-solid { background: var(--gold); color: var(--ink-deep); }
-.btn-solid:hover { background: var(--gold-hi); border-color: var(--gold-hi); }
+.btn-solid:hover { background: var(--ink-deep); color: var(--gold); border-color: var(--ink-deep); }
 .btn-line { color: var(--cream); border-color: transparent; padding-left: 0; padding-right: 0; border-bottom: 1px solid var(--gold); padding-bottom: 4px; }
 .btn-line:hover { color: var(--gold-hi); border-bottom-color: var(--gold-hi); }
 
@@ -61,15 +180,15 @@ p { max-width: 60ch; }
 .cover > img { position: absolute; top: -15%; left: 0; width: 100%; height: 130%; object-fit: cover; object-position: 50% 45%; }
 .cover::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(38,41,31,.55) 0%, rgba(38,41,31,.05) 30%, rgba(38,41,31,.3) 55%, rgba(38,41,31,.8) 80%, var(--ink) 100%); }
 .cover .frame { position: relative; z-index: 2; width: 100%; flex: 1; display: flex; flex-direction: column; }
-.cover header { display: flex; justify-content: space-between; align-items: center; padding: 28px 0; gap: 20px; flex-wrap: wrap; }
+.hero header { display: flex; justify-content: space-between; align-items: center; padding: 28px 0; gap: 20px; flex-wrap: wrap; }
 .wordmark { font: 500 20px/1 var(--display); letter-spacing: 0.02em; text-decoration: none; color: var(--cream); font-variation-settings: "opsz" 28; }
-.cover nav { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; }
-.cover nav a { font-size: 15px; text-decoration: none; color: rgba(238,237,232,.8); transition: color .2s; }
-.cover nav a:hover { color: var(--cream); }
-.cover nav a.book { color: var(--gold-hi); }
-.cover .foot { margin-top: clamp(60px, 14vh, 160px); display: grid; grid-template-columns: 1fr minmax(320px, 470px); gap: 40px; align-items: stretch; padding: 0 0 clamp(44px, 8vh, 80px); }
+.hero nav { display: flex; gap: 26px; align-items: center; flex-wrap: wrap; }
+.hero nav a { font-size: 15px; text-decoration: none; color: rgba(238,237,232,.8); transition: color .2s; }
+.hero nav a:hover { color: var(--cream); }
+.hero nav a.book { color: var(--gold-hi); }
+.hero .foot { margin-top: clamp(60px, 14vh, 160px); display: grid; grid-template-columns: 1fr minmax(320px, 470px); gap: 40px; align-items: stretch; padding: 0 0 clamp(44px, 8vh, 80px); }
 .cover .mark { font-family: var(--display); font-weight: 500; font-size: clamp(130px, 27vw, 330px); line-height: 0.8; letter-spacing: -0.03em; white-space: nowrap; align-self: end; font-variation-settings: "opsz" 28; animation: rise 1.1s cubic-bezier(.2,.7,.2,1) both; }
-.cover .side { padding-bottom: 14px; display: flex; flex-direction: column; }
+.hero .side { padding-bottom: 14px; display: flex; flex-direction: column; }
 .cover .tagline { font-family: var(--display); font-size: clamp(32px, 3.9vw, 50px); line-height: 1.2; color: var(--gold-hi); font-variation-settings: "opsz" 28; animation: rise 1.1s .15s cubic-bezier(.2,.7,.2,1) both; }
 .cover .intro { margin-top: auto; padding-top: 22px; color: rgba(238,237,232,.86); font-size: clamp(18px, 1.5vw, 21px); line-height: 1.55; max-width: 40ch; }
 .cover .actions { margin-top: 28px; display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
@@ -360,7 +479,7 @@ footer .seal { width: 54px; height: 54px; }
 }
 
 @media (max-width: 960px) {
-  .cover .foot { grid-template-columns: 1fr; grid-template-rows: auto 1fr; flex: 1; }
+  .hero .foot { grid-template-columns: 1fr; grid-template-rows: auto 1fr; flex: 1; }
   .cover .mark { align-self: start; }
   .cover .place { display: none; }
   .club, .hours, .visit, .book-line { grid-template-columns: 1fr; }
@@ -373,7 +492,6 @@ footer .seal { width: 54px; height: 54px; }
 @media (max-width: 560px) {
   body { font-size: 16px; }
   .cover .mark { font-size: 36vw; }
-  .cover nav a:not(.book) { display: none; }
   .menu-vip { padding: 28px 22px; }
   .about-list { grid-template-columns: 1fr; }
   .hours-list li { font-size: 16px; }
@@ -382,6 +500,333 @@ footer .seal { width: 54px; height: 54px; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+/* Tema claro: fundo branco, cores da identidade nos destaques */
+body { background: #FFFFFF; color: #26291F; }
+.hero, .cards-sec, section, section.deep, footer { background: #FFFFFF; color: #26291F; }
+section.deep { background: #FFFFFF; }
+h1, h2, h3, h4, p, li, label, strong, em, span, dt, dd, figcaption { color: inherit; }
+h2, h3 { color: #26291F; }
+.muted, .hours-note, .hero .intro, footer, .menu-head p, .visit .address, .hero .place { color: #5F6152; }
+.hero nav a, .wordmark, .fnav a, .hero nav a:hover { color: #26291F; }
+.hero nav a.book { color: #7A5322; }
+.hero nav a:hover { color: #7A5322; }
+.btn-line { color: #26291F; }
+.btn-line:hover { color: #7A5322; border-bottom-color: #D09D59; }
+.card4 { background: #1B1D16; color: #EEEDE8; }
+.cards-sec { background: #44603F; margin-top: 56px; padding: 56px 0 64px; }
+.card-row { gap: 18px; padding: 0 clamp(16px, 4vw, 48px); }
+.card4 { background: #FFE9C8; color: #2A2A22; border-radius: 22px; box-shadow: 0 18px 40px -26px rgba(0,0,0,.6); }
+.card4-body h3 { color: #7A5322; }
+.card4-body p { color: #2A2A22; }
+.card4-link { color: #7A5322; }
+.card4-link { background-image: linear-gradient(currentColor, currentColor); }
+.club h2 em, .about .statement em, .club .amount, .fd-info h3, .fd-body h3, .order .sum strong, .order .sum span, .status { color: #7A5322; }
+.about-blocks .ab-w { background: #F4F2EC; color: #26291F; }
+.about-blocks .ab-w .statement { color: #26291F; }
+.about-list > div strong { color: #26291F; }
+.about-list > div span { color: #5F6152; }
+.hours-list li, .hours-list span { color: #26291F; border-color: #E4E0D6; }
+.hours-list .hi svg, .links svg { color: #D09D59; }
+.menu-vip, .menu-m-vip { background: #FFFFFF; color: #26291F; border: 1px solid #E4E0D6; }
+.menu-vip h3, .menu-m-vip h3 { color: #7A5322; }
+.hero .hp-dots button { border-color: #26291F; }
+.hero .hp-dots button.is-on { background: #26291F; }
+.nav-toggle { color: #26291F; border-color: #D09D59; }
+.totop { color: #7A5322; }
+.totop:hover { color: #26291F; }
+
+/* Menu do celular: fica fechado até tocar em Menu */
+@media (max-width: 820px) {
+  .hero nav { display: none; flex-direction: column; align-items: flex-start; gap: 16px; width: 100%; padding: 12px 0 8px; }
+  .hero nav.open { display: flex; }
+}
+
+/* Fundo verde na página toda: textos claros, painéis brancos mantêm texto escuro */
+body { background-color: #3C4438; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .32 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"), radial-gradient(ellipse at 20% 0%, rgba(243,178,93,.10), transparent 60%); background-blend-mode: overlay, normal; color: #EEEDE8; }
+.hero, .cards-sec, section, section.deep, footer { background: transparent; color: #EEEDE8; }
+h2, h3 { color: #F3B25D; }
+.muted, .hours-note, .menu-head p, .visit .address, .hero .place, footer { color: #DCD9CA; }
+.hero nav a, .wordmark, .fnav a, .hero nav a:hover { color: #EEEDE8; }
+.hero nav a.book, .hero nav a:hover { color: #F3B25D; }
+.btn-line { color: #EEEDE8; }
+.btn-line:hover { color: #F3B25D; border-bottom-color: #F3B25D; }
+.club h2 em, .about .statement em, .club .amount, .fd-info h3, .fd-body h3, .order .sum strong, .order .sum span, .status { color: #F3B25D; }
+.about-list > div strong { color: #EEEDE8; }
+.about-list > div span { color: #DCD9CA; }
+.about-blocks .ab-w .about-list > div strong { color: #26291F; }
+.about-blocks .ab-w .about-list > div span { color: #5F6152; }
+.hours-list li, .hours-list span { color: #EEEDE8; border-color: rgba(238,237,232,.25); }
+.totop { color: #F3B25D; }
+.totop:hover { color: #EEEDE8; }
+.nav-toggle { color: #EEEDE8; border-color: #F3B25D; }
+.hero .hp-dots button { border-color: #26291F; }
+.hero .hp-dots button.is-on { background: #26291F; }
+.hp-bottom .intro, .hp-bottom .btn-line, .hp-bottom .place { color: #26291F; }
+.hp-bottom .btn-line:hover { color: #7A5322; border-bottom-color: #D09D59; }
+.hp-bottom .btn-solid { color: #1B1D16; }
+/* Textos da história no fundo verde */
+.hist-resumo p { color: #EEEDE8; }
+.hist-full p { color: #EEEDE8; font-weight: 500; }
+/* Barra no topo, com a cor escura da identidade e linha dourada */
+.hero > header { position: relative; isolation: isolate; }
+.hero > header::before { content: ""; position: absolute; top: -24px; bottom: -14px; left: calc(50% - 50vw); width: 100vw; background: #1B1D16; border-bottom: 1px solid rgba(208,157,89,.55); z-index: -1; }
+/* Celular: ordem do painel de baixo e ondas */
+@media (max-width: 820px) {
+  .hp-top { padding: 44px 24px 56px; }
+  .hp-bottom { padding: 34px 22px 30px; }
+  .hp-bottom .intro { order: 1; }
+  .hp-bottom .actions { order: 2; flex-direction: column; align-items: stretch; width: 100%; max-width: 300px; margin-top: 20px; }
+  .hp-bottom .actions .btn { width: 100%; text-align: center; justify-content: center; }
+  .hp-dots { order: 3; margin: 26px 0 0; }
+}
+/* Slides do topo: ocupam a mesma área, então a altura não muda ao trocar */
+.hp-slides { display: grid; min-height: 0; }
+.hp-slides .slide, .hp-slides .slide.is-on { grid-area: 1 / 1; position: relative; inset: auto; margin: 0; transition: opacity .6s, transform .6s, visibility .6s; }
+.hp-slides .slide { visibility: hidden; }
+.hp-slides .slide.is-on { visibility: visible; }
+/* Celular: os dois botões com a mesma largura e alinhados */
+@media (max-width: 820px) {
+  .hp-bottom .actions { gap: 12px; margin-top: 18px; }
+  .hp-bottom .actions .btn { display: flex; box-sizing: border-box; width: 100%; margin: 0; align-items: center; justify-content: center; }
+}
+/* Interatividade extra */
+.scroll-bar { position: fixed; left: 0; top: 0; height: 3px; width: 100%; transform: scaleX(0); transform-origin: 0 50%; background: linear-gradient(90deg, #D09D59, #F3B25D); z-index: 200; pointer-events: none; }
+.hero nav a, .fnav a { position: relative; }
+.hero nav a::after, .fnav a::after { content: ""; position: absolute; left: 0; right: 0; bottom: -4px; height: 1px; background: currentColor; transform: scaleX(0); transform-origin: right; transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+.hero nav a:hover::after, .fnav a:hover::after { transform: scaleX(1); transform-origin: left; }
+.js h2.reveal { padding-bottom: 16px; background: linear-gradient(#D09D59, #D09D59) 0 100% / 0 2px no-repeat; transition: opacity 1s cubic-bezier(.2,.7,.2,1) var(--d, 0ms), transform 1s cubic-bezier(.2,.7,.2,1) var(--d, 0ms), background-size 1.4s cubic-bezier(.2,.7,.2,1) .3s; }
+.js h2.reveal.in { background-size: 72px 2px; }
+.menu-group li, .menu-m-item, .hours-list li { transition: padding .45s cubic-bezier(.2,.7,.2,1), background-color .45s; }
+.menu-group li:hover, .menu-m-item:hover, .hours-list li:hover { padding-left: 14px; padding-right: 14px; background-color: rgba(208,157,89,.16); }
+.mosaic figure { overflow: hidden; }
+.mosaic figure.in:hover img { transform: scale(1.06); filter: saturate(1.1); }
+.club .amount { transition: text-shadow .6s; }
+.club .amount:hover { text-shadow: 0 0 34px rgba(208,157,89,.45); }
+.float-cta { position: fixed; right: 18px; bottom: 18px; z-index: 150; background: #D09D59; color: #1B1D16; text-decoration: none; padding: 14px 22px; border-radius: 999px; font-weight: 600; box-shadow: 0 16px 36px -14px rgba(0,0,0,.6); opacity: 0; transform: translateY(18px) scale(.96); pointer-events: none; transition: opacity .5s, transform .5s cubic-bezier(.2,.7,.2,1), background-color .3s; }
+.float-cta.on { opacity: 1; transform: none; pointer-events: auto; }
+.float-cta.on:hover { background: #F3B25D; transform: translateY(-3px); }
+.hist-nova { padding: clamp(60px, 8vw, 96px) 0 clamp(40px, 6vw, 64px); text-align: center; }
+.hist-nova-box { max-width: 760px; margin: 0 auto; }
+.hist-eyebrow { font-size: 12px; letter-spacing: .25em; text-transform: uppercase; color: #B8A07A; margin: 0 0 14px; }
+.js .hist-nova h2.reveal { background-position: 50% 100%; }
+.hist-lead { font-family: var(--display); font-style: italic; font-size: clamp(24px, 2.8vw, 36px); line-height: 1.3; margin: 28px 0 0; font-variation-settings: "opsz" 28; }
+.hist-texto { font-size: 18px; line-height: 1.6; color: #5F6152; margin: 22px auto 0; max-width: 54ch; }
+.hist-texto strong { color: #26291F; }
+.hist-fecho { font-family: var(--display); font-style: italic; color: #B8924F; font-size: clamp(18px, 2vw, 22px); margin: 28px 0 0; }
+.fund-sec { padding: clamp(40px, 6vw, 80px) 0 clamp(60px, 8vw, 96px); }
+.fund { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 120px); align-items: center; }
+.fund-eyebrow { font-size: 12px; letter-spacing: .25em; text-transform: uppercase; color: #B8A07A; margin: 0 0 14px; }
+.fund-lead { font-family: var(--display); font-style: italic; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.3; margin: 26px 0 0; font-variation-settings: "opsz" 28; }
+.fund-p { font-size: 17px; line-height: 1.6; color: #5F6152; margin: 16px 0 0; }
+.fund-p strong { color: #26291F; }
+.fund-gold { color: #B8924F; font-style: italic; font-family: var(--display); font-size: 19px; }
+.fund-fig { position: relative; margin: 0; }
+.fund-fig::before { content: ""; position: absolute; top: -16px; left: -16px; right: 16px; bottom: 16px; border: 1px solid rgba(208,157,89,.55); pointer-events: none; z-index: 0; }
+.fund-fig img { position: relative; z-index: 1; display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.fund-cap { position: absolute; left: 20px; right: 20px; bottom: 20px; z-index: 2; background: rgba(243,241,238,.92); padding: 16px 20px; border-left: 3px solid #D09D59; }
+.fund-cap strong { display: block; font-family: var(--display); font-weight: 500; font-size: 22px; color: #26291F; }
+.fund-cap span { display: block; font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: #5F6152; margin-top: 4px; }
+@media (max-width: 820px) { .fund { grid-template-columns: 1fr; } }
+.val-sec { padding: clamp(40px, 6vw, 80px) 0 clamp(60px, 8vw, 96px); text-align: center; }
+.js .val-sec h2.reveal { background-position: 50% 100%; }
+.val-eyebrow { font-size: 12px; letter-spacing: .25em; text-transform: uppercase; color: #B8A07A; margin: 0 0 14px; }
+.val-card { margin: 52px auto 0; max-width: 880px; padding: clamp(36px, 5vw, 64px) clamp(24px, 4vw, 56px); background: rgba(255,255,255,.6); border: 1px solid rgba(208,157,89,.28); box-shadow: 0 30px 60px -40px rgba(0,0,0,.35); }
+.val-lead { font-family: var(--display); font-style: italic; font-size: clamp(22px, 2.4vw, 30px); line-height: 1.3; color: #26291F; margin: 0; font-variation-settings: "opsz" 28; }
+.val-p { font-size: 17px; line-height: 1.6; color: #5F6152; margin: 18px 0 0; }
+.val-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; margin: 32px 0 0; }
+.val-chips span { font-family: var(--display); font-size: 20px; padding: 14px 22px; border: 1px solid rgba(208,157,89,.45); background: #FFFFFF; color: #26291F; transition: transform .4s cubic-bezier(.2,.7,.2,1), background-color .4s, color .4s; }
+.val-chips span:hover { transform: translateY(-4px); background: #1B1D16; color: #F3B25D; }
+.val-txt2 { margin: 36px auto 0; max-width: 60ch; font-size: 17px; line-height: 1.6; color: #5F6152; }
+.val-txt2 strong { color: #26291F; }
+.val-fecho { margin: 28px 0 0; font-family: var(--display); font-style: italic; color: #B8924F; font-size: clamp(18px, 2vw, 22px); line-height: 1.5; }
+.nx-c { text-align: center; }
+.js .nx-c h2.reveal, .js .codigo-sec h2.reveal, .js .dep-sec h2.reveal { background-position: 50% 100%; }
+.nx-eb { font-size: 12px; letter-spacing: .25em; text-transform: uppercase; color: #B8A07A; margin: 0 0 14px; }
+.nx-rule { display: block; width: 72px; height: 1px; margin: 26px auto 0; background: #D09D59; }
+.nx-rule-l { margin-left: 0; }
+.nx-sec { padding: clamp(60px, 8vw, 96px) 0; }
+.nx-lead { max-width: 52ch; margin: 28px auto 0; font-size: 18px; line-height: 1.6; color: #5F6152; }
+.ritual-steps { list-style: none; margin: 56px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; }
+.ritual-steps li { padding: 0 6px; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.ritual-steps li:hover { transform: translateY(-6px); }
+.rs-n { display: block; font-family: var(--display); font-size: 20px; color: #B8A07A; font-variation-settings: "opsz" 28; }
+.ritual-steps h3 { font-family: var(--display); font-weight: 500; font-size: 20px; color: #26291F; margin: 16px 0 8px; }
+.ritual-steps p { margin: 0; font-size: 15px; line-height: 1.5; color: #5F6152; }
+.ritual-fecho { margin: 56px 0 0; font-style: italic; color: #5F6152; font-size: 17px; }
+.pt-l { font-size: 18px; color: #5F6152; margin: 18px 0 0; }
+.pt-l:first-of-type { margin-top: 34px; }
+.pt-div { display: block; width: 1px; height: 64px; margin: 48px auto 0; background: linear-gradient(transparent, #D09D59, transparent); }
+.pt-final { font-family: var(--display); font-size: clamp(20px, 2.2vw, 26px); color: #26291F; margin: 40px 0 0; }
+.codigo-sec { background: #2B2723; color: #EEEDE8; padding: clamp(60px, 8vw, 96px) 0; }
+.codigo-sec h2 { color: #EEEDE8; }
+.codigo-list { list-style: none; margin: 40px 0 0; padding: 0; }
+.codigo-list li { font-family: var(--display); font-size: clamp(20px, 2.4vw, 28px); line-height: 1.6; color: #F3E9D6; padding: 4px 0; transition: color .4s, transform .4s; }
+.codigo-list li:hover { color: #F3B25D; transform: translateX(6px); }
+.ag-ic { width: 40px; height: 40px; color: #B8A07A; display: block; margin: 0 auto 26px; }
+.ag-p { font-size: 17px; color: #5F6152; margin: 56px 0 0; }
+.ag-p2 { font-size: 17px; color: #26291F; margin: 18px 0 0; }
+.dep-sec { background: #E7E4DE; padding: clamp(60px, 8vw, 96px) 0; }
+.stars { margin: 26px 0 0; color: #B8A07A; font-size: 18px; letter-spacing: 6px; }
+.stars b { font-family: var(--display); font-weight: 500; color: #26291F; letter-spacing: 0; margin-left: 14px; font-size: 18px; }
+.quote-card { position: relative; margin: 48px auto 0; max-width: 820px; padding: 56px clamp(24px, 5vw, 64px) 48px; background: rgba(255,255,255,.7); box-shadow: 0 30px 60px -40px rgba(0,0,0,.3); }
+.qm { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); font-family: var(--display); font-size: 88px; line-height: 1; color: #D9CBB0; }
+.quote-card blockquote { margin: 0; font-family: var(--display); font-style: italic; font-size: clamp(20px, 2.3vw, 28px); line-height: 1.4; color: #26291F; }
+.quote-card figcaption { margin-top: 22px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: #5F6152; }
+.parc-sec { padding: clamp(60px, 8vw, 96px) 0; }
+.sub-it { font-family: var(--display); font-style: italic; font-size: clamp(20px, 2vw, 26px); color: #5F6152; margin: 14px 0 0; }
+.parc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(36px, 6vw, 96px); align-items: center; margin-top: 64px; }
+.parc-fig { margin: 0; }
+.parc-fig img { display: block; width: 100%; height: auto; aspect-ratio: 644 / 500; object-fit: cover; }
+.parc-txt { text-align: left; }
+.parc-txt p { font-size: 17px; line-height: 1.6; color: #5F6152; margin: 0 0 22px; }
+.parc-txt p strong { color: #26291F; }
+.prod { border-left: 2px solid #D09D59; padding: 4px 0 4px 20px; margin: 0 0 24px; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.prod:hover { transform: translateX(6px); }
+.prod h3 { font-family: var(--display); font-weight: 500; font-size: 22px; color: #26291F; margin: 0; }
+.prod p { font-size: 15px; color: #5F6152; margin: 6px 0 12px; }
+.tags span { display: inline-block; font-size: 13px; background: #E7E4DE; color: #26291F; padding: 6px 12px; margin: 0 8px 8px 0; }
+.vita-sec { padding: clamp(60px, 8vw, 96px) 0; }
+.vita-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 7vw, 120px); align-items: center; }
+.vita-sub { font-family: var(--display); font-style: italic; font-size: 20px; color: #5F6152; margin: 10px 0 0; }
+.vita-p { font-size: 17px; line-height: 1.6; color: #5F6152; margin: 24px 0 0; }
+.vita-list { list-style: none; padding: 0; margin: 24px 0 0; }
+.vita-list li { position: relative; padding: 10px 0 10px 22px; font-size: 17px; color: #26291F; }
+.vita-list li::before { content: ""; position: absolute; left: 0; top: 50%; width: 6px; height: 6px; border-radius: 50%; background: #D09D59; transform: translateY(-50%); }
+.vita-txt .btn { margin-top: 30px; }
+.vita-fig { position: relative; margin: 0; }
+.vita-fig img { display: block; width: 100%; height: auto; aspect-ratio: 942 / 710; object-fit: cover; box-shadow: 0 30px 60px -36px rgba(0,0,0,.45); transition: transform .8s cubic-bezier(.2,.7,.2,1); }
+.vita-fig:hover img { transform: scale(1.03); }
+.vita-badge { position: absolute; left: -16px; bottom: -14px; background: #1B4332; color: #F3E9D6; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; padding: 14px 20px; }
+.mais-p { font-size: 17px; color: #5F6152; margin: 34px 0 0; }
+.mais-p2 { font-size: 17px; line-height: 1.6; color: #26291F; margin: 18px auto 0; max-width: 52ch; }
+.orient-sec { padding: clamp(60px, 8vw, 96px) 0; }
+.orient-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px 96px; max-width: 900px; margin: 64px auto 0; }
+.or { transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.or:hover { transform: translateY(-4px); }
+.or-ic { width: 24px; height: 24px; color: #B8924F; fill: none; stroke: currentColor; stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; display: block; margin-bottom: 18px; transition: transform .5s cubic-bezier(.2,.7,.2,1); }
+.or:hover .or-ic { transform: rotate(-8deg) scale(1.15); }
+.orient-grid h3 { font-family: var(--display); font-weight: 500; font-size: 22px; color: #26291F; margin: 0 0 8px; }
+.orient-grid p { margin: 0; font-size: 16px; line-height: 1.55; color: #5F6152; }
+.foot-legal { margin: 34px 0 0; padding-top: 22px; border-top: 1px solid rgba(208,157,89,.3); font-size: 14px; color: #DCD9CA; }
+.foot-legal em { color: #B8924F; }
+@media (max-width: 820px) { .parc-grid, .vita-grid { grid-template-columns: 1fr; } .ritual-steps { grid-template-columns: 1fr 1fr; } .orient-grid { grid-template-columns: 1fr; } }
+/* Contraste dos blocos novos: texto herda a cor do tema (claro ou verde) */
+.fund-eyebrow, .hist-eyebrow, .val-eyebrow, .nx-eb, .rs-n, .ag-ic, .or-ic, .fund-gold, .hist-fecho { color: inherit; opacity: .8; }
+.fund-p, .hist-texto, .nx-lead, .ritual-steps p, .ritual-fecho, .pt-l, .ag-p, .ag-p2, .sub-it, .parc-txt p, .prod p, .vita-p, .vita-sub, .mais-p, .mais-p2, .orient-grid p, .vita-list li, .fund-lead, .hist-lead, .pt-final, .orient-grid h3, .ritual-steps h3, .prod h3 { color: inherit; }
+.fund-p strong, .hist-texto strong, .parc-txt p strong { color: inherit; }
+.dep-sec, .dep-sec h2 { color: #26291F; }
+.dep-sec .nx-eb { color: #7A5322; opacity: 1; }
+/* Ajustes finais: dourado da paleta, fundo verde e selo visível no clube */
+.nx-rule { height: 2px; background: var(--gold); }
+.nx-eb, .fund-eyebrow, .hist-eyebrow, .val-eyebrow, .rs-n, .or-ic, .ag-ic, .fund-gold, .hist-fecho { color: var(--gold) !important; opacity: 1; }
+.js h2.reveal { background: linear-gradient(var(--gold), var(--gold)) 0 100% / 0 2px no-repeat; }
+.qm { color: var(--gold); opacity: .45; }
+.prod { border-left-color: var(--gold); }
+.dep-sec { background: transparent; }
+.dep-sec, .dep-sec h2 { color: inherit; }
+.frame.club .price-col .seal { color: var(--ink-deep); }
+.menu, .menu-m { background: var(--gold); }
+/* Cardápio: dourado claro da paleta e textos mais destacados */
+.menu, .menu-m { background: var(--gold-hi); color: #1B1D16; }
+.menu-title, .menu-group h3, .menu-m-group h3 { color: #1B1D16; font-weight: 600; }
+.menu-group h3, .menu-m-group h3 { border-bottom-color: rgba(27,29,22,.5); }
+.menu-sub, .menu small, .menu-m-item .n small, .menu-m-item .p em { color: #3A3527; }
+.menu-group li, .menu-m-item .n { color: #1B1D16; font-weight: 500; }
+.menu-group li .p, .menu-m-item .p, .menu-group .price, .menu-m-item .price { color: #1B1D16; font-weight: 700; }
+.menu-m-item { border-bottom-color: rgba(27,29,22,.5); }
+.menu-note, .menu-m-note { color: #1B1D16; font-weight: 500; }
+.menu-vip .menu-m-item, .menu-m-vip .menu-m-item { border-bottom-color: rgba(238,237,232,.2); }
+.menu-m-vip, .menu-m-vip h3, .menu-m-vip .menu-m-item .n, .menu-m-vip .menu-m-item .p, .menu-m-vip .menu-m-item .n small { color: #EEEDE8; }
+/* Interatividade extra nos blocos novos */
+.pt-l { transition: transform .4s cubic-bezier(.2,.7,.2,1); }
+.pt-l:hover { transform: translateY(-3px); }
+.pt-div { transition: height .6s cubic-bezier(.2,.7,.2,1); }
+.pt-sec:hover .pt-div { height: 110px; }
+.nx-rule { transition: width .6s cubic-bezier(.2,.7,.2,1); }
+.nx-sec:hover .nx-rule, .codigo-sec:hover .nx-rule, .dep-sec:hover .nx-rule { width: 140px; }
+.ag-ic { transition: transform .6s cubic-bezier(.2,.7,.2,1); }
+.ag-ic:hover { transform: rotate(-8deg) scale(1.12); }
+.quote-card { transition: transform .5s cubic-bezier(.2,.7,.2,1), box-shadow .5s; }
+.quote-card:hover { transform: translateY(-6px); box-shadow: 0 40px 70px -40px rgba(0,0,0,.4); }
+.vita-list li { transition: padding-left .4s cubic-bezier(.2,.7,.2,1); }
+.vita-list li:hover { padding-left: 30px; }
+.mais-p2 { transition: letter-spacing .6s; }
+.mais-sec:hover .mais-p2 { letter-spacing: .02em; }
+/* Alinhamento: parágrafos das seções centralizadas acompanham o título */
+.nx-c p, .nx-c .frame > p, .nx-c .frame > div > p { margin-left: auto !important; margin-right: auto !important; }
+.nx-c .frame { text-align: center; }
+/* Quadros até a borda da página */
+#sobre > .frame { width: 100vw; max-width: none; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+.val-card { max-width: none; width: 100vw; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+#rail { width: 100vw; max-width: none; margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw); }
+.cat-nav { margin-right: calc(50% - 50vw) !important; padding-right: 12px; }
+.val-card, .val-card p { text-align: center !important; }
+.val-card p { margin-left: auto !important; margin-right: auto !important; max-width: 60ch; }
+.val-card .val-chips { margin-left: auto; margin-right: auto; }
+.hist-full { margin-left: auto; margin-right: auto; text-align: center; }
+.hist-full p { margin-left: auto; margin-right: auto; }
+@media (min-width: 821px) {
+  .hero .hp-l, .hero .hp-r { position: relative; }
+  .hero .hp-l::after, .hero .hp-r::after {
+    content: ""; position: absolute; top: 0; bottom: 0; width: 32%;
+    pointer-events: none; z-index: 2;
+  }
+  .hero .hp-l::after { right: 0; background: linear-gradient(to right, rgba(27,29,22,0), rgba(27,29,22,.85) 70%, #1B1D16); }
+  .hero .hp-r::after { left: 0; background: linear-gradient(to left, rgba(27,29,22,0), rgba(27,29,22,.85) 70%, #1B1D16); }
+}
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse 60% 50% at 12% 8%, rgba(208,157,89,.26), transparent 70%),
+    radial-gradient(ellipse 55% 45% at 88% 92%, rgba(208,157,89,.22), transparent 70%),
+    radial-gradient(ellipse 120% 90% at 50% 50%, transparent 55%, rgba(0,0,0,.55) 100%),
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .10 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+.cta-band { padding: 72px 4vw; text-align: center; background: linear-gradient(180deg, transparent, rgba(208,157,89,.08), transparent); }
+.cta-band h2 { font-size: clamp(30px, 4vw, 44px); margin: 12px 0 10px; color: var(--cream); }
+.cta-band p { color: #E2DFD3; max-width: 560px; margin: 0 auto; line-height: 1.6; font-size: 17px; }
+.cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 26px; }
+.rev-band { padding: 72px 4vw; text-align: center; }
+.rev-band .nx-eb { display: block; text-align: center; margin: 0 auto; color: var(--gold-hi) !important; font-size: 13px; letter-spacing: .2em; }
+.rev-band h2 { font-size: clamp(30px, 4vw, 44px); margin: 12px 0 34px; color: var(--cream); }
+.rev-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; max-width: 1100px; margin: 0 auto; }
+.rev-card { margin: 0; padding: 28px 24px; text-align: left; background: rgba(238,237,232,.06); border: 1px solid rgba(208,157,89,.28); border-radius: 6px; }
+.rev-card .stars { color: var(--gold-hi); letter-spacing: 3px; font-size: 14px; }
+.rev-card blockquote { font-family: "Playfair Display", serif; font-size: 19px; line-height: 1.5; color: var(--cream); margin: 14px 0; }
+.rev-card figcaption { font-size: 13px; color: #CFCBBE; }
+.val-fecho { color: var(--cream) !important; font-style: normal !important; font-size: 17px; }
+.muted { color: #DCD9CD !important; }
+.fund-p, .fund-lead, .hist-texto, .val-p, .val-txt2 { font-size: 17px; line-height: 1.6; }
+.dep-sec { display: none !important; }
+@media (max-width: 820px) {
+  .hero { gap: 0 !important; row-gap: 0 !important; }
+  .hero .hp-l, .hero .hp-r, .hero .hero3 { margin: 0 !important; }
+  .hero .hero3 { margin-top: 0 !important; }
+}
+@media (max-width: 820px) {
+  .hero .hp-l, .hero .hp-r { position: relative !important; left: 0 !important; right: 0 !important; transform: none !important; width: 100% !important; max-width: 100% !important; margin: 0 !important; }
+  .hero .hp-l img, .hero .hp-r img { transform: none !important; left: 0 !important; width: 100% !important; }
+  .hero { overflow: hidden; padding-left: 0 !important; padding-right: 0 !important; }
+}
+@media (max-width: 820px) {
+  .hero { width: 100vw !important; max-width: 100vw !important; margin-left: calc(50% - 50vw) !important; margin-right: 0 !important; }
+  html, body { overflow-x: hidden; }
+}
+@media (max-width: 820px) {
+  .hero .frame .hero3 { width: 100vw !important; max-width: 100vw !important; margin-left: calc(50% - 50vw) !important; margin-right: 0 !important; margin-top: 0 !important; }
+}
+/* Barra de navegação fixa no topo ao rolar */
+.hero { padding-top: 96px !important; }
+.hero header { position: fixed; top: 0; left: 0; right: 0; z-index: 45; padding: 14px max(var(--pad), calc((100vw - 1280px) / 2 + var(--pad))); background: rgba(27,29,22,.82); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(208,157,89,.22); }
+@media (max-width: 820px) {
+  .hero { padding-top: 72px !important; }
+  .hero header { padding: 10px var(--pad); }
+  .hero nav.open { padding-bottom: 14px; }
+}
+html { scroll-padding-top: 90px; }
+.hero > .frame { z-index: auto; }
+.hero header { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; border-bottom: 1px solid transparent; transition: background .3s, border-color .3s; }
+.hero header.scrolled { background: #1B1D16; border-bottom-color: rgba(208,157,89,.3); box-shadow: 0 10px 30px -18px rgba(0,0,0,.8); }
 </style>
 </head>
 <body>
@@ -405,38 +850,89 @@ footer .seal { width: 54px; height: 54px; }
   </defs>
 </svg>
 
-<div class="cover" id="inicio">
-  <img src="img/tools.jpg" alt="Máquina dourada, tesoura, navalha e pente sobre uma superfície escura" fetchpriority="high">
-  <div class="spot" aria-hidden="true"></div>
+<div class="hero" id="inicio">
   <div class="frame">
     <header>
       <a class="wordmark" href="#inicio"><img class="logo-mark" src="img/logo.png" alt="Logo Yurt">Barbearia Yurt</a>
-      <nav aria-label="Principal">
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="menu-principal">Menu</button>
+      <nav aria-label="Principal" id="menu-principal">
         <a href="#servicos">Serviços</a>
         <a href="#clube">Clube</a>
         <a href="#sobre">Sobre</a>
         <a href="#horarios">Horários</a>
         <a href="#contato">Contato</a>
+        <a href="https://claude.ai/artifact/Jh2ucwx9SHsnG7Mzivm8ec">Loja</a>
         <a class="book" href="agendar.html">Agendar</a>
       </nav>
     </header>
-    <div class="foot">
-      <h1 class="mark">Yurt</h1>
-      <div class="side">
-        <p class="tagline">Na Yurt a gente preza por um bom papo.</p>
-        <p class="intro">Atendimento individual e personalizado, com Roberto Godoi, há 15 anos. Cabelo, barba e bigode, sempre com hora marcada.</p>
+    <div class="hero3">
+      <figure class="hp hp-l"><img src="img/portrait.jpg" alt="" fetchpriority="high"></figure>
+      <div class="hp-c">
+        <div class="hp-top">
+        <span class="hp-tag">Barbearia em Maringá</span>
+        <h1 class="mark">Yurt</h1>
+        <div class="hp-slides" aria-live="off">
+          <p class="tagline slide is-on">Na Yurt a gente preza por um bom papo.</p>
+          <p class="tagline slide">Cabelo, barba e bigode com <em>hora marcada.</em></p>
+          <p class="tagline slide">Atendimento individual, com <em>15 anos de cadeira.</em></p>
+        </div>
+        </div>
+        <div class="hp-bottom">
+        <div class="hp-dots" role="group" aria-label="Destaques">
+          <button type="button" class="is-on" aria-label="Destaque 1"></button>
+          <button type="button" aria-label="Destaque 2"></button>
+          <button type="button" aria-label="Destaque 3"></button>
+        </div>
+        <p class="intro">Com Roberto Godoi, na R. Luiz Gama, 933, Loja 2, Maringá.</p>
         <div class="actions">
           <a class="btn btn-solid" href="agendar.html">Agendar pelo site</a>
           <a class="btn btn-line" href="https://wa.me/5544999049797?text=Ol%C3%A1%21%20Quero%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">Ou chamar no WhatsApp</a>
         </div>
+        </div>
       </div>
+      <figure class="hp hp-r"><img src="img/roberto-retrato.jpg" alt="" loading="lazy"></figure>
     </div>
   </div>
-  <p class="place">R. Luiz Gama, 933, Loja 2, Maringá, PR</p>
-  <svg class="seal-hero" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="ring-h" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><circle cx="60" cy="60" r="58" fill="none" stroke="currentColor" stroke-width="1.2"/><circle cx="60" cy="60" r="36" fill="none" stroke="currentColor" stroke-width="1"/><text font-family="Bodoni Moda, serif" font-size="13" font-weight="500" fill="currentColor" letter-spacing="2.4"><textPath href="#ring-h" textLength="270" lengthAdjust="spacing">BARBA · CABELO · BIGODE ·</textPath></text><text x="60" y="66" text-anchor="middle" font-family="Bodoni Moda, serif" font-size="18" font-weight="500" fill="currentColor">YURT</text></svg>
 </div>
 
 <main>
+
+  <section class="cards-sec" aria-label="Atalhos">
+    <div class="frame card-row">
+      <a class="card4" href="#servicos"><img src="img/servico-maquina.jpg" alt="Máquina de corte em uso na nuca" loading="lazy"><div class="card4-body"><h3>Serviços</h3><p>Cortes, barba e cuidados com hora marcada.</p><span class="card4-link">Ver serviços</span></div></a>
+      <a class="card4" href="#clube"><img src="img/clube-tesouras.jpg" alt="Tesouras e pentes de barbeiro sobre a bancada" loading="lazy"><div class="card4-body"><h3>Clube Yurt Gold</h3><p>Assinatura mensal para quem vem com frequência.</p><span class="card4-link">Conhecer o clube</span></div></a>
+      <a class="card4" href="#sobre"><img src="img/roberto-janela.jpg" alt="Roberto Godoi em pé diante da janela, com o paletó no ombro" loading="lazy"><div class="card4-body"><h3>Sobre a Yurt</h3><p>Atendimento individual, produtos de alta performance.</p><span class="card4-link">Conhecer a casa</span></div></a>
+      <a class="card4" href="#horarios"><img src="img/fachada-yurt.jpg" alt="Placa da Yurt na fachada, com telefone e agendamento prévio" loading="lazy"><div class="card4-body"><h3>Horários</h3><p>Segunda a sexta, das 8h às 18h.</p><span class="card4-link">Ver horários</span></div></a>
+    </div>
+  </section>
+
+  <section class="hist-resumo" aria-labelledby="hist-titulo">
+    <div class="frame hist-resumo-box">
+      <h2 id="hist-titulo">Origem</h2>
+      <p>A Barbearia Yurt nasce do conceito de yurt, a habitação circular dos povos nômades da Ásia Central, firme e feita para acolher.</p>
+      <a class="btn btn-line" href="#historia">Ler a história completa</a>
+    </div>
+  </section>
+
+  <a class="strip" href="agendar.html">Agendar horário online &middot; Pagamento via Pix &middot; Confirmação pelo WhatsApp</a>
+
+  <section id="contato">
+    <div class="deco" aria-hidden="true">
+      <span class="dw" style="right:5%;top:14%;--s:50px;--dl:.4s"><svg aria-hidden="true" class="di" viewBox="0 0 60 100"><use href="#ic-bottle"/></svg></span>
+      <span class="dw" style="left:4%;bottom:12%;--s:48px;--dl:1.6s"><svg aria-hidden="true" class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
+    </div>
+    <div class="frame visit">
+      <div>
+        <h2 style="margin-bottom:28px;">Unidade</h2>
+        <p class="address">R. Luiz Gama, 933, Loja 2<br>Maringá, PR</p>
+      </div>
+      <div class="links">
+        <a href="https://www.google.com/maps/search/?api=1&amp;query=R.+Luiz+Gama,+933,+Maringa,+PR" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-pin"/></svg>Ver no Google Maps</a>
+        <a href="https://wa.me/5544999049797" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-whats"/></svg>+55 44 99904-9797, no WhatsApp</a>
+        <a href="https://www.instagram.com/barbeariayurt/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-insta"/></svg>@barbeariayurt, no Instagram</a>
+      </div>
+    </div>
+  </section>
 
   <section id="servicos">
     <div class="deco" aria-hidden="true">
@@ -551,43 +1047,13 @@ footer .seal { width: 54px; height: 54px; }
     </div>
   </section>
 
-  <section class="deep" aria-label="Galeria">
-    <div class="deco" aria-hidden="true">
-      <span class="dw" style="left:4%;bottom:8%;--s:150px;--dl:.6s"><svg aria-hidden="true" class="di" viewBox="0 0 120 60"><use href="#ic-comb"/></svg></span>
-      <span class="dw" style="right:5%;top:10%;--s:56px;--dl:2s"><svg aria-hidden="true" class="di" viewBox="0 0 60 100"><use href="#ic-bottle"/></svg></span>
-    </div>
-    <div class="frame catalogo">
-      <div class="cat-head">
-        <div class="cat-nav">
-          <button type="button" aria-label="Fotos anteriores" data-dir="-1">&larr;</button>
-          <button type="button" aria-label="Próximas fotos" data-dir="1">&rarr;</button>
-        </div>
-      </div>
-      <div class="rail" id="rail" tabindex="0" aria-label="Fotos da barbearia">
-        <figure class="rail-card" tabindex="0">
-          <img src="img/portrait.jpg" alt="Barbeiro da Yurt em ambiente escuro, com tom quente" loading="lazy">
-          <div class="fd-info"><h3>O barbeiro</h3><p>São 15 anos de cadeira dedicados ao cabelo, à barba e ao bigode. Cada atendimento começa com uma conversa, para entender o seu estilo e a sua rotina. Na Yurt, a gente preza por um bom papo.</p></div>        </figure>
-        <figure class="rail-card" tabindex="0">
-          <img src="img/shop.jpg" alt="Salão da Yurt com espelhos, cadeira de barbeiro e um cliente sendo atendido" loading="lazy">
-          <div class="fd-info"><h3>O salão</h3><p>Um espaço pensado para o atendimento individual, com espelhos, cadeiras de barbeiro e hora marcada. Fica na R. Luiz Gama, 933, Loja 2, em Maringá, PR.</p></div>        </figure>
-        <figure class="rail-card" tabindex="0">
-          <img src="img/roberto-loja.jpg" alt="Roberto Godoi atendendo no balcão da Yurt, com as ferramentas de corte organizadas" loading="lazy">
-          <div class="fd-info"><h3>No balcão</h3><p>Tesouras, navalhas, pentes, máquinas e escovas, todos à mão para cada atendimento. Os produtos de cabelo e barba são da linha Keune.</p></div>        </figure>
-        <figure class="rail-card" tabindex="0">
-          <img src="img/roberto-retrato.jpg" alt="Roberto Godoi, barbeiro da Yurt, em foto de estúdio com fundo perfurado" loading="lazy">
-          <div class="fd-info"><h3>Estilo</h3><p>Corte e barba pensados para o seu rosto e para a sua rotina. Quem quer um planejamento completo pode pedir a consultoria de visagismo estrutural e imagem.</p></div>        </figure>
-        <figure class="rail-card" tabindex="0">
-          <img src="img/roberto-estudio.jpg" alt="Roberto Godoi caminhando, de terno cinza, diante de uma parede escura" loading="lazy">
-          <div class="fd-info"><h3>Clube</h3><p>Para quem vem com frequência: quatro serviços por mês, à sua escolha entre corte, barba ou os dois. Vagas limitadas, com consulta prévia de agenda.</p></div>        </figure>
-      </div>
-      <div class="rail-track" aria-hidden="true"><i id="rail-bar"></i></div>
-    </div>
-    <div class="frame mosaic">
-      <div class="note">
-        <svg class="dryer" viewBox="0 0 190 120" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M30 34 H96 Q122 34 122 56 V62 Q122 84 96 84 H30 Z"/><path d="M122 46 H150 V70 H122"/><rect x="56" y="84" width="26" height="30" rx="8"/><path class="air" d="M158 40 H182 M158 58 H182 M158 76 H182" stroke-dasharray="6 8"/></svg>
-        <p>Atendimento individual, com hora marcada e sem pressa.</p>
-        <p>Um espaço pensado para você, do início ao fim do corte.</p>
-      </div>
+  <section class="cta-band" aria-label="Agendar">
+    <p class="nx-eb">Agenda aberta</p>
+    <h2>Reserve seu horário na Yurt</h2>
+    <p>Atendimento com hora marcada, sem pressa. Pagamento via Pix.</p>
+    <div class="cta-btns">
+      <a class="btn btn-solid" href="agendar.html">Agendar pelo site</a>
+      <a class="btn btn-line" href="https://wa.me/5544999049797?text=Ol%C3%A1%21%20Quero%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">Chamar no WhatsApp</a>
     </div>
   </section>
 
@@ -616,18 +1082,261 @@ footer .seal { width: 54px; height: 54px; }
   </section>
 
   <section id="sobre" class="deep">
-    <div class="deco" aria-hidden="true">
-      <span class="dw" style="right:3%;top:10%;--s:40px;--dl:1.8s"><svg aria-hidden="true" class="di" viewBox="0 0 60 120"><use href="#ic-pole"/></svg></span>
-      <span class="dw" style="left:3%;bottom:12%;--s:52px;--dl:.9s"><svg aria-hidden="true" class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
-    </div>
-    <div class="frame about">
-      <svg class="mustache" viewBox="0 0 240 90" aria-hidden="true"><path class="draw" pathLength="100" d="M120 46 C104 30 80 26 56 34 C42 38 34 30 26 18 C36 40 50 56 78 58 C98 60 110 54 120 46 Z"/><path class="draw" pathLength="100" d="M120 46 C136 30 160 26 184 34 C198 38 206 30 214 18 C204 40 190 56 162 58 C142 60 130 54 120 46 Z"/></svg>
-      <p class="statement">"Não é terapia, <em>mas é terapêutico.</em>"</p>
-      <div class="about-list">
+    <div class="frame">
+      <div class="about-blocks">
+        <div class="ab-y">
+          <h2>Sobre a Yurt</h2>
+          <a class="btn btn-solid" href="agendar.html">Agendar um horário</a>
+        </div>
+        <div class="ab-w">
+          <p class="statement">"Não é terapia, <em>mas é terapêutico.</em>"</p>
+          <div class="about-list">
         <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></g></svg><strong>Atendimento individual</strong><span>Foco total em você, sem pressa.</span></div>
         <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></g></svg><strong>Produtos Keune</strong><span>Linha de alta performance, usada em todos os cuidados.</span></div>
         <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></g></svg><strong>Hora marcada</strong><span>Seu tempo é respeitado do início ao fim.</span></div>
         <div><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></g></svg><strong>15 anos de cadeira</strong><span>Experiência para entender o seu estilo e a sua rotina.</span></div>
+      
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band" aria-label="Agendar">
+    <p class="nx-eb">Próximo passo</p>
+    <h2>Venha conhecer a Yurt</h2>
+    <p>Cada cliente recebe atenção integral. Escolha um horário e comece pelo seu ritual.</p>
+    <div class="cta-btns">
+      <a class="btn btn-solid" href="agendar.html">Agendar pelo site</a>
+    </div>
+  </section>
+
+  <section class="hist-nova" aria-labelledby="nova-hist-titulo">
+    <div class="frame hist-nova-box">
+      <p class="hist-eyebrow">Trajetória</p>
+      <h2 id="nova-hist-titulo">Nossa História</h2>
+      <p class="hist-lead">A Yurt é um refúgio de paz e renovação.</p>
+      <p class="hist-texto">Um espaço independente e autoral, pensado para o homem encontrar calma, cuidado e confiança. Como todo bom tratamento, o resultado vem com <strong>regularidade.</strong></p>
+      <p class="hist-fecho">Acreditamos que excelência não é luxo — é responsabilidade.</p>
+    </div>
+  </section>
+
+  <section class="fund-sec" aria-label="Fundador">
+    <div class="frame fund">
+      <div class="fund-txt">
+        <p class="fund-eyebrow">Barbeiro visagista</p>
+        <h2>Roberto Godoi</h2>
+        <p class="fund-lead">Mais de 15 anos de experiência. Um barbeiro visagista e artesão de alto padrão, que trata cada etapa como um ritual de respeito.</p>
+        <p class="fund-p"><strong>Rigor técnico.</strong> A excelência mora nos detalhes, do acabamento no contorno à esterilização das ferramentas e à limpeza da bancada.</p>
+        <p class="fund-p"><strong>Atendimento humano.</strong> Sem pressa e fora da lógica de linha de produção, cultiva laços duradouros e transforma a cadeira em espaço de confiança e aconselhamento.</p>
+        <p class="fund-p"><strong>Visão empreendedora.</strong> Modelos de assinatura, pacotes para noivos e padrinhos e o projeto Expedição 399, que leva o ofício a todos os municípios do Paraná.</p>
+      </div>
+      <figure class="fund-fig">
+        <img src="img/fundador.jpg" alt="Roberto Godoi, fundador da Barbearia Yurt" loading="lazy">
+        <figcaption class="fund-cap"><strong>Roberto Godoi</strong><span>Fundador</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="rev-band" aria-labelledby="rev-t">
+    <p class="nx-eb">Google · 5,0 de 5 · 33 avaliações</p>
+    <h2 id="rev-t">O que dizem os clientes</h2>
+    <div class="rev-grid">
+      <figure class="rev-card"><span class="stars">★★★★★</span><blockquote>“Não é um simples corte de cabelo, estar sentado naquela cadeira se torna uma terapia com uma excelente conversa.”</blockquote><figcaption>Fabio M. · avaliação no Google</figcaption></figure>
+      <figure class="rev-card"><span class="stars">★★★★★</span><blockquote>“Roberto é, disparadamente, o melhor barbeiro de Maringá! Sou cliente há quase 10 anos.”</blockquote><figcaption>Rafael V. · avaliação no Google</figcaption></figure>
+      <figure class="rev-card"><span class="stars">★★★★★</span><blockquote>“Ótimo atendimento, profissionalismo e um ambiente agradável.”</blockquote><figcaption>Henrique R. · avaliação no Google</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="val-sec" aria-labelledby="valores-titulo">
+    <div class="frame">
+      <p class="val-eyebrow">Fundamentos</p>
+      <h2 id="valores-titulo">Nossos Valores</h2>
+      <div class="val-card">
+        <p class="val-lead">A Yurt é uma empresa abertamente cristã.</p>
+        <p class="val-p">Nosso trabalho é guiado por princípios inegociáveis:</p>
+        <div class="val-chips">
+          <span>Verdade</span><span>Honra</span><span>Respeito</span><span>Disciplina</span><span>Serviço</span>
+        </div>
+        <p class="val-txt2">Acreditamos que todo trabalho bem-feito glorifica a Deus e que servir com excelência é uma forma de <strong>testemunho silencioso.</strong></p>
+        <p class="val-fecho">Aqui, caráter vem antes da estética.<br>E a palavra tem valor.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="historia">
+    <div class="frame hist-full">
+      <h2>O que é a Barbearia Yurt</h2>
+      <p>Yurt é uma habitação tradicional utilizada por povos nômades da Ásia Central. Um espaço circular, firme e funcional, criado para proteger, acolher e concentrar o essencial.</p>
+      <p>A Barbearia Yurt nasce desse conceito: um refúgio masculino onde tradição, técnica e identidade permanecem firmes, mesmo em movimento.</p>
+      <p>Estética e ambiente: identidade moderna, limpa e sofisticada, com linhas inspiradas no design italiano, climatizada e acolhedora.</p>
+      <p>Padrão de produtos e serviços: curadoria técnica com linhas profissionais, como a Keune. Além do corte e da barba, visagismo personalizado, tratamentos capilares, assinatura mensal e atendimento para eventos.</p>
+      <p>Proposta de valor: um refúgio de bem-estar e estilo em Maringá, onde o cliente paga pela exclusividade, pela precisão técnica e pela certeza de ser atendido por quem se importa com o resultado.</p>
+    </div>
+  </section>
+
+  <section class="deep" aria-label="Galeria">
+    <div class="deco" aria-hidden="true">
+      <span class="dw" style="left:4%;bottom:8%;--s:150px;--dl:.6s"><svg aria-hidden="true" class="di" viewBox="0 0 120 60"><use href="#ic-comb"/></svg></span>
+      <span class="dw" style="right:5%;top:10%;--s:56px;--dl:2s"><svg aria-hidden="true" class="di" viewBox="0 0 60 100"><use href="#ic-bottle"/></svg></span>
+    </div>
+    <div class="frame catalogo">
+      <div class="cat-head">
+        <div class="cat-nav">
+          <button type="button" aria-label="Fotos anteriores" data-dir="-1">&larr;</button>
+          <button type="button" aria-label="Próximas fotos" data-dir="1">&rarr;</button>
+        </div>
+      </div>
+      <div class="rail" id="rail" tabindex="0" aria-label="Fotos da barbearia">
+        <figure class="rail-card" tabindex="0">
+          <img src="img/portrait.jpg" alt="Barbeiro da Yurt em ambiente escuro, com tom quente" loading="lazy">
+          <div class="fd-info"><h3>O barbeiro</h3><p>São 15 anos de cadeira dedicados ao cabelo, à barba e ao bigode. Cada atendimento começa com uma conversa, para entender o seu estilo e a sua rotina. Na Yurt, a gente preza por um bom papo.</p></div>        </figure>
+        <figure class="rail-card" tabindex="0">
+          <img src="img/shop.jpg" alt="Salão da Yurt com espelhos, cadeira de barbeiro e um cliente sendo atendido" loading="lazy">
+          <div class="fd-info"><h3>O salão</h3><p>Um espaço pensado para o atendimento individual, com espelhos, cadeiras de barbeiro e hora marcada. Fica na R. Luiz Gama, 933, Loja 2, em Maringá, PR.</p></div>        </figure>
+        <figure class="rail-card" tabindex="0">
+          <img src="img/roberto-loja.jpg" alt="Roberto Godoi atendendo no balcão da Yurt, com as ferramentas de corte organizadas" loading="lazy">
+          <div class="fd-info"><h3>No balcão</h3><p>Tesouras, navalhas, pentes, máquinas e escovas, todos à mão para cada atendimento. Os produtos de cabelo e barba são da linha Keune.</p></div>        </figure>
+        <figure class="rail-card" tabindex="0">
+          <img src="img/roberto-retrato.jpg" alt="Roberto Godoi, barbeiro da Yurt, em foto de estúdio com fundo perfurado" loading="lazy">
+          <div class="fd-info"><h3>Estilo</h3><p>Corte e barba pensados para o seu rosto e para a sua rotina. Quem quer um planejamento completo pode pedir a consultoria de visagismo estrutural e imagem.</p></div>        </figure>
+        <figure class="rail-card" tabindex="0">
+          <img src="img/roberto-estudio.jpg" alt="Roberto Godoi caminhando, de terno cinza, diante de uma parede escura" loading="lazy">
+          <div class="fd-info"><h3>Clube</h3><p>Para quem vem com frequência: quatro serviços por mês, à sua escolha entre corte, barba ou os dois. Vagas limitadas, com consulta prévia de agenda.</p></div>        </figure>
+        <figure class="rail-card" tabindex="0">
+          <img src="img/galeria-navalha.jpg" alt="Mão recebendo o aparo da navalha de barbeiro" loading="lazy">
+          <div class="fd-info"><h3>Navalha</h3><p>O acabamento com navalha é feito com calma, para deixar cada detalhe do rosto no lugar.</p></div>        </figure>
+        <figure class="rail-card" tabindex="0">
+          <img src="img/poste-barbeiro.jpg" alt="Poste de barbeiro com listras vermelhas, azuis e brancas, aceso na fachada" loading="lazy">
+          <div class="fd-info"><h3>Fachada</h3><p>As listras giratórias do poste indicam a barbearia de longe. A Yurt fica na R. Luiz Gama, 933, Loja 2.</p></div>        </figure>
+        <figure class="rail-card" tabindex="0">
+          <img src="img/atendimento-roberto.jpg" alt="Roberto Godoi atendendo um cliente com a capa no pescoço, diante de prateleiras de produtos" loading="lazy">
+          <div class="fd-info"><h3>Atendimento</h3><p>Cada corte começa com uma conversa e segue no seu ritmo, com hora marcada.</p></div>        </figure>
+        <figure class="rail-card" tabindex="0">
+          <img src="img/secagem-roberto.jpg" alt="Roberto Godoi finalizando o penteado de um cliente com secador" loading="lazy">
+          <div class="fd-info"><h3>Finalização</h3><p>O penteado é finalizado com secador e produto, para o corte ficar do jeito que você sai daqui.</p></div>        </figure>
+        <figure class="rail-card" tabindex="0">
+          <img src="img/roberto-com-amigo.jpg" alt="Roberto Godoi ao lado de um amigo, em foto tirada dentro da Yurt" loading="lazy">
+          <div class="fd-info"><h3>Na Yurt</h3><p>Quem vem uma vez costuma voltar. Fica o convite para conhecer o espaço.</p></div>        </figure>
+      </div>
+      <div class="rail-track" aria-hidden="true"><i id="rail-bar"></i></div>
+    </div>
+    <div class="frame mosaic">
+      <div class="note">
+        <svg class="dryer" viewBox="0 0 190 120" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M30 34 H96 Q122 34 122 56 V62 Q122 84 96 84 H30 Z"/><path d="M122 46 H150 V70 H122"/><rect x="56" y="84" width="26" height="30" rx="8"/><path class="air" d="M158 40 H182 M158 58 H182 M158 76 H182" stroke-dasharray="6 8"/></svg>
+        <p>Atendimento individual, com hora marcada e sem pressa.</p>
+        <p>Um espaço pensado para você, do início ao fim do corte.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="nx-sec nx-c" aria-labelledby="ritual-t">
+    <div class="frame">
+      <h2 id="ritual-t">O Ritual Yurt</h2>
+      <span class="nx-rule"></span>
+      <p class="nx-lead">Na Yurt, cada atendimento segue um ritual claro. Não por formalidade, mas por respeito ao tempo, à técnica e ao homem que está aqui.</p>
+      <ol class="ritual-steps">
+        <li><span class="rs-n">01</span><h3>Chegada</h3><p>Recepção sem pressá</p></li>
+        <li><span class="rs-n">02</span><h3>Diagnóstico</h3><p>Silencioso e preciso</p></li>
+        <li><span class="rs-n">03</span><h3>Execução</h3><p>Técnica com foco absoluto</p></li>
+        <li><span class="rs-n">04</span><h3>Finalização</h3><p>Orientação personalizada</p></li>
+        <li><span class="rs-n">05</span><h3>Encerramento</h3><p>Clareza e respeito</p></li>
+      </ol>
+      <p class="ritual-fecho">O ritual garante padrão, consistência e experiência.</p>
+    </div>
+  </section>
+
+  <section class="nx-sec nx-c" aria-label="Não é para todos">
+    <div class="frame">
+      <h2>Não é para todos</h2>
+      <span class="nx-rule"></span>
+      <p class="pt-l">A Yurt não trabalha com pressa.</p>
+      <p class="pt-l">Não atende por volume.</p>
+      <p class="pt-l">Não segue modismos.</p>
+      <span class="pt-div" aria-hidden="true"></span>
+      <p class="pt-final">Atendemos homens que valorizam ordem, constância e excelência.</p>
+    </div>
+  </section>
+
+  <section class="nx-sec nx-c" aria-label="Agenda">
+    <div class="frame">
+      <svg class="ag-ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
+      <h2>Agenda controlada</h2>
+      <span class="nx-rule"></span>
+      <p class="ag-p">Trabalhamos com agenda limitada para manter o padrão Yurt.</p>
+      <p class="ag-p2">Cada cliente recebe atenção integral, sem sobreposição ou improviso.</p>
+    </div>
+  </section>
+
+  <section class="parc-sec" aria-labelledby="keune-t">
+    <div class="frame">
+      <div class="nx-c">
+        <p class="nx-eb">Parceiros</p>
+        <h2 id="keune-t">Keune.</h2>
+        <p class="sub-it">Performance que respeita o ritual.</p>
+        <span class="nx-rule"></span>
+      </div>
+      <div class="parc-grid">
+        <figure class="parc-fig"><img src="img/keune.jpg" alt="Produtos Keune: pomada, navalhas e acessórios" loading="lazy"></figure>
+        <div class="parc-txt">
+          <p>Trabalhamos com a <strong>Keune</strong> por um motivo simples: excelência comprovada, ciência aplicada e respeito absoluto ao cabelo e ao couro cabeludo.</p>
+          <p>Cada produto indicado na Yurt passa por critério técnico, não por tendência.</p>
+          <div class="prod">
+            <h3>Keune 1942</h3>
+            <p>Tradição clássica com tecnologia moderna.</p>
+            <div class="tags"><span>Pomadas</span><span>Óleos para barba</span><span>Shampoos</span><span>Finalizadores</span></div>
+          </div>
+          <div class="prod">
+            <h3>Keune Vital Nutrition</h3>
+            <p>Cuidado profundo começa na raiz.</p>
+            <div class="tags"><span>Nutrição</span><span>Recuperação</span><span>Fortalecimento capilar</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vita-sec" aria-labelledby="vita-t">
+    <div class="frame vita-grid">
+      <div class="vita-txt">
+        <p class="nx-eb">Exclusivo Yurt</p>
+        <h2 id="vita-t">VitaForce</h2>
+        <p class="vita-sub">Multivitamínico Masculino</p>
+        <span class="nx-rule nx-rule-l"></span>
+        <p class="vita-p">Desenvolvido para homens que entendem que cuidar do corpo também é responsabilidade.</p>
+        <ul class="vita-list">
+          <li>Fórmula própria</li>
+          <li>Posicionamento premium</li>
+          <li>Comunicação honesta</li>
+        </ul>
+        <a class="btn btn-line" href="https://wa.me/5544999049797?text=Ol%C3%A1%21%20Quero%20saber%20mais%20sobre%20o%20VitaForce." target="_blank" rel="noopener">Saber mais</a>
+      </div>
+      <figure class="vita-fig">
+        <img src="img/vitaforce.jpg" alt="Frasco do VitaForce Multivitamínico Masculino" loading="lazy">
+        <span class="vita-badge">Exclusivo Yurt</span>
+      </figure>
+    </div>
+  </section>
+
+  <section class="nx-sec nx-c" aria-label="Mais do que um corte">
+    <div class="frame">
+      <h2>Mais do que um corte</h2>
+      <span class="nx-rule"></span>
+      <p class="mais-p">A Yurt não é uma experiência pontual.</p>
+      <p class="mais-p2">Acompanhamos nossos clientes ao longo do tempo, ajustando estilo, rotina e cuidados conforme cada fase.</p>
+    </div>
+  </section>
+
+  <section class="orient-sec" aria-label="Orientações">
+    <div class="frame">
+      <div class="nx-c">
+        <h2>Orientações Yurt</h2>
+        <span class="nx-rule"></span>
+      </div>
+      <div class="orient-grid">
+        <div class="or"><svg class="or-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>Manutenção</h3><p>Quando retornar para manter o corte no padrão ideal</p></div>
+        <div class="or"><svg class="or-ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8 8l12 10M8 16L20 6"/></svg><h3>Resultado</h3><p>Como manter o resultado no dia a dia</p></div>
+        <div class="or"><svg class="or-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3c3 4 6 7.5 6 11a6 6 0 0 1-12 0c0-3.5 3-7 6-11z"/></svg><h3>Produtos</h3><p>Como usar corretamente os produtos indicados</p></div>
+        <div class="or"><svg class="or-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg><h3>Cuidados</h3><p>Cuidados masculinos reais, sem exagero</p></div>
       </div>
     </div>
   </section>
@@ -651,49 +1360,58 @@ footer .seal { width: 54px; height: 54px; }
     </div>
   </section>
 
-  <section id="agendar" class="deep">
-    <div class="deco" aria-hidden="true">
-      <span class="dw" style="left:2%;top:10%;--s:80px;--dl:1.2s"><svg aria-hidden="true" class="di" viewBox="0 0 100 100"><use href="#ic-scissors"/></svg></span>
-      <span class="dw" style="right:3%;bottom:8%;--s:120px;--dl:2.6s"><svg aria-hidden="true" class="di" viewBox="0 0 120 60"><use href="#ic-comb"/></svg></span>
-    </div>
-    <div class="frame book-line">
-      <div>
-        <h2>Marque seu horário</h2>
-        <svg class="shave" viewBox="0 0 240 120" aria-hidden="true"><defs><pattern id="stubble" width="11" height="11" patternUnits="userSpaceOnUse"><circle cx="5.5" cy="5.5" r="1.7" fill="currentColor"/></pattern><mask id="stub-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="240" height="120"><rect x="0" y="0" width="240" height="120" fill="#fff"/><rect class="clear" x="0" y="0" width="0" height="120" fill="#000"/></mask></defs><rect x="0" y="14" width="240" height="66" fill="url(#stubble)" mask="url(#stub-mask)"/><g class="razor"><g transform="translate(10 46)" fill="none" stroke="currentColor" stroke-width="2"><path d="M-2 -8 L8 0 L-2 8 Z" fill="currentColor"/><rect x="-46" y="-6" width="44" height="12" rx="3"/></g></g></svg>
-        <p class="muted" style="margin-top:20px;">Escolha um horário livre na agenda ou chame no WhatsApp. A confirmação chega pelo mesmo canal.</p>
-        <p class="pay">Pagamento via Pix.</p>
-      </div>
-      <div class="actions">
-        <a class="btn btn-solid" href="agendar.html" data-agenda-link>Agendar pelo site</a>
-        <a class="btn btn-line" href="https://wa.me/5544999049797" target="_blank" rel="noopener">Ou chamar no WhatsApp</a>
-      </div>
+  <section class="dep-sec nx-c" aria-labelledby="dep-t">
+    <div class="frame">
+      <p class="nx-eb">Testemunhos</p>
+      <h2 id="dep-t">O que dizem nossos clientes</h2>
+      <span class="nx-rule"></span>
+      <div class="stars" aria-label="Avaliação 5 de 5">★★★★★<b>5.0</b></div>
+      <figure class="quote-card">
+        <span class="qm" aria-hidden="true">“</span>
+        <blockquote>“Ambiente de respeito e excelência. A cada visita, a sensação de ser tratado com dignidade.”</blockquote>
+        <figcaption>— Cliente desde 2022</figcaption>
+      </figure>
     </div>
   </section>
 
-  <section id="contato">
-    <div class="deco" aria-hidden="true">
-      <span class="dw" style="right:5%;top:14%;--s:50px;--dl:.4s"><svg aria-hidden="true" class="di" viewBox="0 0 60 100"><use href="#ic-bottle"/></svg></span>
-      <span class="dw" style="left:4%;bottom:12%;--s:48px;--dl:1.6s"><svg aria-hidden="true" class="di" viewBox="0 0 60 120"><use href="#ic-brush"/></svg></span>
-    </div>
-    <div class="frame visit">
-      <div>
-        <h2 style="margin-bottom:28px;">Onde estamos</h2>
-        <p class="address">R. Luiz Gama, 933, Loja 2<br>Maringá, PR</p>
-      </div>
-      <div class="links">
-        <a href="https://www.google.com/maps/search/?api=1&amp;query=R.+Luiz+Gama,+933,+Maringa,+PR" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-pin"/></svg>Ver no Google Maps</a>
-        <a href="https://wa.me/5544999049797" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-whats"/></svg>+55 44 99904-9797, no WhatsApp</a>
-        <a href="https://www.instagram.com/barbeariayurt/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ic-insta"/></svg>@barbeariayurt, no Instagram</a>
-      </div>
+  <section class="codigo-sec nx-c" aria-label="Código Yurt">
+    <div class="frame">
+      <h2>Código Yurt</h2>
+      <span class="nx-rule"></span>
+      <ul class="codigo-list">
+        <li>Honramos o tempo.</li>
+        <li>Falamos a verdade.</li>
+        <li>Trabalhamos com excelência.</li>
+        <li>Respeitamos o silêncio.</li>
+        <li>Servimos com propósito.</li>
+      </ul>
     </div>
   </section>
 
+  <section class="cta-band" aria-label="Agendar">
+    <p class="nx-eb">Sua vez</p>
+    <h2>Agende seu horário</h2>
+    <p>Hora marcada, atendimento individual e um ritual pensado para você.</p>
+    <div class="cta-btns">
+      <a class="btn btn-solid" href="agendar.html">Agendar pelo site</a>
+      <a class="btn btn-line" href="https://wa.me/5544999049797?text=Ol%C3%A1%21%20Quero%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">Chamar no WhatsApp</a>
+    </div>
+  </section>
 </main>
 
 <footer>
   <div class="frame">
     <span style="display:flex;align-items:center;gap:14px;"><svg class="seal" viewBox="0 0 120 120" aria-hidden="true"><defs><path id="ring-f" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs><circle cx="60" cy="60" r="58" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="60" cy="60" r="36" fill="none" stroke="currentColor" stroke-width="1.4"/><text x="60" y="66" text-anchor="middle" font-family="Bodoni Moda, serif" font-size="18" font-weight="500" fill="currentColor">YURT</text></svg>Barbearia Yurt, Maringá, PR</span>
     <span>Barba, cabelo e bigode</span>
+    <nav class="fnav" aria-label="Rodapé">
+      <a href="#servicos">Serviços</a>
+      <a href="#clube">Clube</a>
+      <a href="#horarios">Horários</a>
+      <a href="agendar.html">Agendar</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="totop" href="#inicio">Voltar ao topo</a>
+    <p class="foot-legal">© 2026 YURT – Barber &amp; Ritual House<br><em>A Yurt não se anuncia. Ela se revela.</em></p>
   </div>
 </footer>
 
@@ -703,7 +1421,8 @@ footer .seal { width: 54px; height: 54px; }
   var root = document.documentElement;
 
   // Parallax suave na foto do hero
-  var heroImg = document.querySelector('.cover > img');
+  var heroImg = document.querySelector('.hero .hp-l img');
+  var heroImgR = document.querySelector('.hero .hp-r img');
 
   if (reduce) return;
   root.classList.add('js');
@@ -751,8 +1470,9 @@ footer .seal { width: 54px; height: 54px; }
       if (ticking) return;
       ticking = true;
       requestAnimationFrame(function () {
-        var y = Math.min(window.scrollY, window.innerHeight);
+        var y = window.innerWidth > 820 ? Math.min(window.scrollY, window.innerHeight) : 0;
         heroImg.style.transform = 'translate3d(0,' + (-y * 0.15) + 'px,0)';
+        if (heroImgR) heroImgR.style.transform = 'translate3d(0,' + (-y * 0.15) + 'px,0)';
         ticking = false;
       });
     }, { passive: true });
@@ -784,7 +1504,7 @@ footer .seal { width: 54px; height: 54px; }
   }, { passive: true });
 
   // Letras do nome aparecem uma a uma
-  var mark = document.querySelector('.cover .mark');
+  var mark = document.querySelector('.hero .mark');
   if (mark && !reduce) {
     var word = mark.textContent;
     mark.textContent = '';
@@ -961,7 +1681,7 @@ footer .seal { width: 54px; height: 54px; }
   if (statement) splitWords(statement);
 
   // Luz que acompanha o cursor sobre o hero
-  var cover = document.querySelector('.cover');
+  var cover = document.querySelector('.hero');
   var spot = document.querySelector('.cover .spot');
   if (cover && spot && window.matchMedia('(pointer: fine)').matches) {
     cover.addEventListener('pointermove', function (e) {
@@ -1104,6 +1824,164 @@ footer .seal { width: 54px; height: 54px; }
     card.addEventListener('blur', function () { hide(card); });
   });
 })();
+</script>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var slides = document.querySelectorAll('.hp-slides .slide');
+  var dots = document.querySelectorAll('.hp-dots button');
+  if (slides.length && dots.length) {
+    var atual = 0, timer = null;
+    function ir(i) {
+      atual = (i + slides.length) % slides.length;
+      slides.forEach(function (el, k) { el.classList.toggle('is-on', k === atual); });
+      dots.forEach(function (el, k) { el.classList.toggle('is-on', k === atual); });
+    }
+    dots.forEach(function (d, k) { d.addEventListener('click', function () { ir(k); reiniciar(); }); });
+    function reiniciar() { clearInterval(timer); if (!reduce) timer = setInterval(function () { ir(atual + 1); }, 5000); }
+    reiniciar();
+  }
+  var btn = document.querySelector('.nav-toggle');
+  var nav = document.getElementById('menu-principal');
+  if (btn && nav) {
+    btn.addEventListener('click', function () {
+      var aberto = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', aberto ? 'true' : 'false');
+    });
+    nav.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); });
+    });
+  }
+})();
+</script>
+<script>
+(function () {
+  if (!document.documentElement.classList.contains('js')) document.documentElement.classList.add('js');
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = window.matchMedia('(pointer: fine)').matches;
+
+  // Blocos revelam ao entrar na tela
+  if (!reduce && 'IntersectionObserver' in window) {
+    var alvos = document.querySelectorAll('main section > .frame > *:not(.card4), .hist-full p, .strip');
+    var ver = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); ver.unobserve(en.target); } });
+    }, { threshold: 0.12 });
+    alvos.forEach(function (el, i) { el.classList.add('reveal'); el.style.setProperty('--d', (i % 4) * 120 + 'ms'); ver.observe(el); });
+  }
+
+  // Menu destaca a seção que está na tela
+  var links = document.querySelectorAll('.hero nav a[href^="#"]');
+  var porId = {};
+  links.forEach(function (a) { porId[a.getAttribute('href').slice(1)] = a; });
+  if ('IntersectionObserver' in window) {
+    var nav = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        var a = porId[en.target.id];
+        if (en.isIntersecting && a) { links.forEach(function (l) { l.classList.remove('is-active'); }); a.classList.add('is-active'); }
+      });
+    }, { rootMargin: '-45% 0px -45% 0px' });
+    Object.keys(porId).forEach(function (id) { var s = document.getElementById(id); if (s) nav.observe(s); });
+  }
+
+  if (!fine || reduce) return;
+
+  // Luz no topo que segue o cursor
+  var hero = document.querySelector('.hero');
+  var spot = document.createElement('div');
+  spot.className = 'spot';
+  hero.appendChild(spot);
+  hero.addEventListener('pointermove', function (e) {
+    var r = hero.getBoundingClientRect();
+    spot.style.left = (e.clientX - r.left) + 'px';
+    spot.style.top = (e.clientY - r.top) + 'px';
+    spot.style.opacity = 1;
+  });
+  hero.addEventListener('pointerleave', function () { spot.style.opacity = 0; });
+
+  // Cartões inclinam conforme o cursor
+  document.querySelectorAll('.card4').forEach(function (c) {
+    c.addEventListener('pointermove', function (e) {
+      var r = c.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5, y = (e.clientY - r.top) / r.height - 0.5;
+      c.style.transform = 'perspective(900px) rotateX(' + (-y * 10) + 'deg) rotateY(' + (x * 10) + 'deg) translateY(-8px)';
+    });
+    c.addEventListener('pointerleave', function () { c.style.transform = ''; });
+  });
+
+  // Botões acompanham levemente o cursor
+  document.querySelectorAll('.btn').forEach(function (b) {
+    b.addEventListener('pointermove', function (e) {
+      var r = b.getBoundingClientRect();
+      var x = e.clientX - (r.left + r.width / 2), y = e.clientY - (r.top + r.height / 2);
+      b.style.transform = 'translate(' + (x * 0.18) + 'px,' + (y * 0.25) + 'px)';
+    });
+    b.addEventListener('pointerleave', function () { b.style.transform = ''; });
+  });
+})();
+</script>
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Barra de progresso no topo da página
+  var bar = document.createElement('div');
+  bar.className = 'scroll-bar';
+  document.body.appendChild(bar);
+
+  // Botão flutuante de agendamento depois da primeira tela
+  var fab = document.createElement('a');
+  fab.className = 'float-cta';
+  fab.href = 'agendar.html';
+  fab.textContent = 'Agendar agora';
+  document.body.appendChild(fab);
+
+  var ticking = false;
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function () {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      var p = max > 0 ? window.scrollY / max : 0;
+      bar.style.transform = 'scaleX(' + p + ')';
+      fab.classList.toggle('on', window.scrollY > window.innerHeight * 0.8);
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+
+  // O valor do clube conta de zero até o preço ao aparecer na tela
+  var amount = document.querySelector('.club .amount');
+  if (amount && !reduce && 'IntersectionObserver' in window) {
+    var txt = amount.textContent;
+    var target = parseInt(txt.replace(/\D/g, ''), 10);
+    var prefix = txt.slice(0, txt.search(/\d/));
+    amount.textContent = prefix + '0';
+    var io = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (en) {
+        if (!en.isIntersecting) return;
+        io.unobserve(en.target);
+        var t0= null, dur = 1400;
+        function step(ts) {
+          if (t0 === null) t0 = ts;
+          var k = Math.min((ts - t0) / dur, 1);
+          var eased = 1 - Math.pow(1 - k, 3);
+          amount.textContent = prefix + Math.round(target * eased);
+          if (k < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0 });
+    io.observe(amount);
+    setTimeout(function () { if (amount.textContent === prefix + '0') amount.textContent = prefix + target; }, 5000);
+  }
+})();
+</script>
+<script>document.querySelectorAll('img').forEach(function(i){ i.loading = 'lazy'; i.decoding = 'async'; });</script>
+<script>
+(function(){var h=document.querySelector('.hero header');if(!h)return;function f(){h.classList.toggle('scrolled',(window.scrollY||document.documentElement.scrollTop)>24)}f();window.addEventListener('scroll',f,{passive:true});})();
 </script>
 </body>
 </html>
